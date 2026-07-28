@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import Script from "next/script";
 import "./globals.css";
 import Header from "../components/Header";
+import VisitorCounter from "../components/VisitorCounter";
+
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID || "G-CNVV9GXQ65";
 
 export const metadata: Metadata = {
   title: "PUST Data Science Club",
@@ -22,6 +26,25 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Lora:ital,wght@0,400..700;1,400..700&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap"
           rel="stylesheet"
         />
+        {/* Google Analytics 4 */}
+        {GA_MEASUREMENT_ID && GA_MEASUREMENT_ID !== "G-XXXXXXXXXX" && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_MEASUREMENT_ID}', {
+                  page_path: window.location.pathname,
+                });
+              `}
+            </Script>
+          </>
+        )}
       </head>
       <body className="min-h-screen font-[Inter] text-[#0f172a] antialiased flex flex-col overflow-x-hidden">
 
@@ -130,14 +153,18 @@ export default function RootLayout({
             </div>
           </div>
 
-          <div className="border-t border-blue-100 bg-white/70">
-            <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-1 px-4 py-2 text-center text-xs text-slate-500 sm:flex-row sm:px-6 sm:text-left lg:px-8">
-              <span>Powered by PUST Data Science Club</span>
+          <div className="border-t border-blue-100/80 bg-white/80 backdrop-blur-xs">
+            <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-3 text-center text-xs text-slate-500 sm:flex-row sm:px-6 sm:text-left lg:px-8">
+              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3">
+                <span className="font-medium text-slate-600">Powered by PUST Data Science Club</span>
+                <span className="hidden sm:inline text-slate-300">•</span>
+                <VisitorCounter variant="compact" />
+              </div>
               <a
                 href="https://adittoahosankabbo.github.io/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 transition-colors hover:text-blue-600"
+                className="inline-flex items-center gap-2 font-medium text-slate-600 transition-colors hover:text-blue-600"
               >
                 <span>Developed by Aditto Ahosan Kabbo</span>
                 <Image
@@ -145,7 +172,7 @@ export default function RootLayout({
                   alt="Aditto Ahosan Kabbo"
                   width={24}
                   height={24}
-                  className="h-6 w-6 rounded-full object-cover ring-1 ring-blue-100"
+                  className="h-6 w-6 rounded-full object-cover ring-1 ring-blue-200"
                 />
               </a>
             </div>
