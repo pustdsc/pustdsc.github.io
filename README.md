@@ -3,8 +3,6 @@
 Official web application for the Data Science Club at Pabna University of Science & Technology (PUST), Bangladesh.
 
 - **Website**: [https://pustdsc.github.io](https://pustdsc.github.io)
-- **Affiliation**: Department of Statistics, PUST
-- **Developed by**: [Aditto Ahosan Kabbo](https://adittoahosankabbo.github.io)
 
 ---
 
