@@ -1,74 +1,41 @@
-# PUST Data Science Club (PUST DSC)
+# PUST Data Science Club
 
-> From Statistics to AI, We Learn by Building.
+Official web platform for the Data Science Club at Pabna University of Science & Technology (PUST). Built with Next.js, TypeScript, and Tailwind CSS.
 
-The official website repository for the Pabna University of Science & Technology (PUST) Data Science Club. We are a student-led organization dedicated to building practical skills in statistics, data analytics, machine learning, and artificial intelligence through workshops, collaborative projects, academic research, and industry events.
+## Features
 
----
+- **Explorer Hub**: Curated datasets, research paper directories, and interactive technology tools (*ChatGPT, Gemini, MediaPipe*).
+- **Club Activities**: Showcase of workshops, seminars, executive committee leadership, and club milestones.
+- **Learning Pathways**: Structured guides for Statistics, Python, R, SQL, Power BI, and Machine Learning.
 
-## Overview & Features
-
-- **Explorer Hub**: Curated directories for datasets, research tools, interactive learning platforms, and technology tools including ChatGPT, Gemini, Google Lens, and MediaPipe.
-- **Community & Leadership**: Profiles of our executive committee members, advisors, and student leaders.
-- **Journey & Events**: Highlights and photo records of past workshops, inauguration meetings, and committee handovers.
-- **Learning Resources**: Structured guides and recommended tools for Python, R, SQL, Power BI, Tableau, and Machine Learning.
-- **Research & Publications**: Showcase of student projects, academic research, and community blog posts.
-
----
-
-## Technology Stack
+## Tech Stack
 
 - **Framework**: Next.js (App Router, TypeScript, React 19)
 - **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **Icons**: Lucide React
+- **UI Libraries**: Framer Motion, Lucide React
 
----
+## Development
 
-## Getting Started
+```bash
+# Clone the repository
+git clone https://github.com/pustdsc/pustdsc.github.io.git
+cd pustdsc.github.io
 
-### Prerequisites
+# Install dependencies
+npm install
 
-Make sure you have Node.js (version 18 or higher) and npm installed on your system.
+# Start development server
+npm run dev
+```
 
-### Local Development
+Open [http://localhost:3000](http://localhost:3000) to view the application locally.
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/pustdsc/pustdsc.github.io.git
-   cd pustdsc.github.io
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-4. Open `http://localhost:3000` in your web browser to view the application.
-
----
-
-## Building for Production
-
-To create an optimized production build, run:
+## Build
 
 ```bash
 npm run build
 ```
 
----
-
-## Contributing
-
-Suggestions, bug reports, and contributions are welcome. Feel free to open an issue or submit a pull request.
-
----
-
 ## License
 
-This project is licensed under the MIT License.
+[MIT](LICENSE)
