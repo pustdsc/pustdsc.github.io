@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PUST Data Science Club (PUST DSC)
 
-## Getting Started
+> **From Statistics to AI, We Learn by Building.**
 
-First, run the development server:
+The official web platform of the **Pabna University of Science & Technology (PUST) Data Science Club**. A student-driven community dedicated to advancing statistics, data analytics, machine learning, and artificial intelligence through hands-on workshops, real-world projects, research collaborations, and industry engagement.
+
+---
+
+## 🌟 Key Features
+
+- **🌐 Explorer Hub**: Curated learning pathways, benchmark datasets, research paper directories, and interactive technology demos (*ChatGPT, Gemini, Google Lens, MediaPipe, etc.*).
+- **👥 Executive Leadership & Mentorship**: Showcase of advisors, office bearers, and committee members.
+- **🖼️ Journey & Gallery**: Interactive photo slideshows documenting workshops, inauguration ceremonies, and committee handovers.
+- **📚 Educational Resources**: Curated roadmaps for Python, R, SQL, Power BI, Tableau, and Machine Learning.
+- **📅 Events & Seminars**: Announcements and recaps for career masterclasses, datathons, and academic seminars.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework**: [Next.js](https://nextjs.org/) (React 19, App Router, TypeScript)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+Make sure you have **Node.js** (v18.0 or higher) and **npm** installed on your system.
+
+### Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/pustdsc/pustdsc.github.io.git
+   cd pustdsc.github.io
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server**:
+   ```bash
+   npm run dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
+
+---
+
+## 📜 Build for Production
+
+To create an optimized production build:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🤝 Contributing
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/pustdsc/pustdsc.github.io/issues).
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📄 License
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is licensed under the MIT License.
