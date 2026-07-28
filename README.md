@@ -4,6 +4,7 @@ Official web application for the Data Science Club at Pabna University of Scienc
 
 - **Website**: [https://pustdsc.github.io](https://pustdsc.github.io)
 - **Affiliation**: Department of Statistics, PUST
+- **Developed by**: [Aditto Ahosan Kabbo](https://adittoahosankabbo.github.io)
 
 ---
 
@@ -12,7 +13,6 @@ Official web application for the Data Science Club at Pabna University of Scienc
 - **Explorer Hub**: Curated directories for datasets (Kaggle, UCI, UN Data), research paper portals (Google Scholar, arXiv, IEEE Xplore), interactive learning applets, and AI tech tools.
 - **Community & Leadership**: Profiles of executive committee members, general members, and faculty advisors.
 - **Events & Gallery**: Historical logs and photos of masterclasses, inauguration meetings, and committee handovers.
-- **Skills Covered**: Python, R, SQL, Power BI, Tableau, Excel, SPSS, Git, Jupyter.
 
 ---
 
@@ -48,6 +48,12 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 ```bash
 npm run build
 ```
+
+---
+
+## Developer
+
+Designed and developed by [Aditto Ahosan Kabbo](https://adittoahosankabbo.github.io).
 
 ---
 
