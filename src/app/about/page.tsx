@@ -33,7 +33,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="w-full rounded-2xl border border-slate-100 bg-gradient-to-b from-slate-50 to-white px-5 py-12 md:px-8 md:py-16">
+      <section className="w-auto -mx-[16px] md:mx-0 md:w-full rounded-none md:rounded-2xl border-y md:border border-slate-100 bg-gradient-to-b from-slate-50 to-white px-4 py-12 md:px-8 md:py-16">
         <div className="mx-auto grid max-w-5xl gap-5 md:grid-cols-3">
           {aboutCards.map((item) => (
             <article key={item.title} className="group rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-blue-100 hover:shadow-lg">

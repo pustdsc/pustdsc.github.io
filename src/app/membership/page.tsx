@@ -101,22 +101,22 @@ export default function Membership() {
             {benefits.map((benefit, index) => {
               const Icon = benefit.icon;
               return (
-              <div
-                key={benefit.title}
-                className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md"
-              >
-                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-600 to-cyan-400 opacity-0 transition-opacity group-hover:opacity-100" />
-                <div className="mb-6 flex items-center justify-between">
-                  <span className="text-xs font-bold uppercase tracking-[0.16em] text-slate-400">
-                    0{index + 1}
-                  </span>
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600 transition-colors group-hover:bg-blue-600 group-hover:text-white">
-                    <Icon className="h-5 w-5" />
-                  </span>
+                <div
+                  key={benefit.title}
+                  className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md"
+                >
+                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-600 to-cyan-400 opacity-0 transition-opacity group-hover:opacity-100" />
+                  <div className="mb-6 flex items-center justify-between">
+                    <span className="text-xs font-bold uppercase tracking-[0.16em] text-slate-400">
+                      0{index + 1}
+                    </span>
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600 transition-colors group-hover:bg-blue-600 group-hover:text-white">
+                      <Icon className="h-5 w-5" />
+                    </span>
+                  </div>
+                  <h3 className="font-space-grotesk text-lg font-extrabold text-slate-900">{benefit.title}</h3>
+                  <p className="mt-3 text-sm font-medium leading-relaxed text-slate-600">{benefit.text}</p>
                 </div>
-                <h3 className="font-space-grotesk text-lg font-extrabold text-slate-900">{benefit.title}</h3>
-                <p className="mt-3 text-sm font-medium leading-relaxed text-slate-600">{benefit.text}</p>
-              </div>
               );
             })}
           </div>

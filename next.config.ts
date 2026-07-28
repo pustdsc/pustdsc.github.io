@@ -5,9 +5,8 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true, // Required for static hosting
   },
-  // If your website will be hosted at a subpath (e.g. https://pustdsc.github.io/website/)
-  // uncomment the line below and set it to your repository name:
-  // basePath: "/website",
+  // Allows hot-reloading (HMR) to connect successfully when testing live on your mobile device
+  allowedDevOrigins: ["192.168.0.101", "192.168.0.101:3000", "localhost:3000"],
 };
 
 export default nextConfig;

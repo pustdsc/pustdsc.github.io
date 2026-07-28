@@ -32,7 +32,7 @@ export default function Blog() {
         </div>
       </section>
 
-      <section className="w-full rounded-2xl border border-slate-100 bg-gradient-to-b from-slate-50 to-white px-5 py-12 md:px-8 md:py-16">
+      <section className="w-auto -mx-[16px] md:mx-0 md:w-full rounded-none md:rounded-2xl border-y md:border border-slate-100 bg-gradient-to-b from-slate-50 to-white px-4 py-12 md:px-8 md:py-16">
         <div className="mx-auto grid max-w-4xl gap-6 md:grid-cols-2">
           {posts.map((post) => (
             <Link

@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { siteData } from "@/data/data";
-import { BrainCircuit, FlaskConical, Network } from "lucide-react";
+import { BrainCircuit, FlaskConical, Network, Search, Database, FileText, Cpu, ExternalLink, Sparkles, Globe, Eye, Mic, Bot, Gamepad2, Smartphone, ArrowUpRight, Layers } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const gallerySlides = [
   // 1. Inauguration Ceremony (Feb 2025)
@@ -70,9 +71,219 @@ const pastEvents = [
   },
 ];
 
+const resourceHub = {
+  datasets: [
+    { title: "Kaggle Datasets", url: "https://www.kaggle.com/datasets", badge: "Top Pick", bestFor: "Community datasets & ML models", desc: "Explore, analyze, and download over 350,000 high-quality community datasets." },
+    { title: "Google Dataset Search", url: "https://datasetsearch.research.google.com", badge: "Google", bestFor: "Cross-repo search", desc: "Locate datasets hosted across thousands of repositories on the web." },
+    { title: "UCI Machine Learning Repo", url: "https://archive.ics.uci.edu", badge: "Classic", bestFor: "Benchmark datasets", desc: "Over 600 datasets for classification, regression, and clustering algorithms." },
+    { title: "Our World in Data", url: "https://ourworldindata.org", badge: "Insights", bestFor: "Global & social trends", desc: "Global research and open-source datasets covering climate, energy, and health." },
+    { title: "Hugging Face Datasets", url: "https://huggingface.co/datasets", badge: "AI & NLP", bestFor: "Large ML datasets", desc: "Thousands of collaborative datasets for NLP, machine translation, and vision." },
+    { title: "NASA Open Data Portal", url: "https://data.nasa.gov/dataset/", badge: "Space & Earth", bestFor: "Aerospace & Earth sciences", desc: "Access thousands of earth science, aerospace, and space exploration datasets." },
+    { title: "UN Data", url: "https://data.un.org/", badge: "UN Stats", bestFor: "Global demographics & trade", desc: "A global statistical database covering statistics on trade, environment, and demographics." },
+    { title: "Harvard Dataverse", url: "https://dataverse.harvard.edu/", badge: "Academic", bestFor: "Replication materials & data", desc: "An open research data repository to share, cite, and analyze research data across all disciplines." },
+  ],
+  papers: [
+    {
+      title: "Google Scholar",
+      url: "https://scholar.google.com",
+      badge: "Start Here",
+      bestFor: "General academic searching",
+      subCategory: "Search for Research Papers",
+      desc: "Google Scholar searches across scholarly literature and considers publication source, authorship, full text, and citation relationships when ranking results."
+    },
+    {
+      title: "Semantic Scholar",
+      url: "https://www.semanticscholar.org",
+      badge: "AI Search",
+      bestFor: "Fast paper discovery",
+      subCategory: "Search for Research Papers",
+      desc: "A more beginner-friendly, AI-supported alternative for finding influential papers, related studies, and citation information."
+    },
+    {
+      title: "CORE",
+      url: "https://core.ac.uk",
+      badge: "Free Full Text",
+      bestFor: "Finding open-access full text",
+      subCategory: "Search for Research Papers",
+      desc: "CORE aggregates open-access research from repositories, preprint servers, and journals worldwide."
+    },
+    {
+      title: "IEEE Xplore",
+      url: "https://ieeexplore.ieee.org",
+      badge: "Tech Papers",
+      bestFor: "Electrical engineering & CS",
+      subCategory: "Search for Research Papers",
+      desc: "A digital library providing access to scientific and technical content published by the IEEE and its partners."
+    },
+    {
+      title: "DOAJ",
+      url: "https://doaj.org",
+      badge: "Open Access",
+      bestFor: "Open-access journal articles",
+      subCategory: "Open-Access Journals",
+      desc: "DOAJ indexes open-access journals and works to improve the visibility of quality, peer-reviewed open-access research."
+    },
+    {
+      title: "PubMed Central",
+      url: "https://www.ncbi.nlm.nih.gov/pmc/",
+      badge: "Health Research",
+      bestFor: "Free health and biomedical papers",
+      subCategory: "Open-Access Journals",
+      desc: "Very important for statistics students working with health, epidemiology, survival analysis, mental health, biology, and public-health topics."
+    },
+    {
+      title: "arXiv",
+      url: "https://arxiv.org",
+      badge: "Preprint",
+      bestFor: "Recent technical research",
+      subCategory: "Preprints and Recent Research",
+      desc: "Essential for statistics, mathematics, computer science, machine learning, AI, and data science."
+    },
+    {
+      title: "SSRN",
+      url: "https://www.ssrn.com",
+      badge: "Working Papers",
+      bestFor: "Economics and social science",
+      subCategory: "Preprints and Recent Research",
+      desc: "Useful for economics, finance, business, law, social science, and working papers."
+    },
+    {
+      title: "medRxiv",
+      url: "https://www.medrxiv.org",
+      badge: "Medical Preprint",
+      bestFor: "Recent medical studies",
+      subCategory: "Preprints and Recent Research",
+      desc: "Include this because statistics students may work on medical and public-health research."
+    },
+    {
+      title: "Zenodo",
+      url: "https://zenodo.org",
+      badge: "Research Repository",
+      bestFor: "Research files, code, and datasets",
+      subCategory: "Research Outputs & Repositories",
+      desc: "Provides papers, datasets, code, presentations, reports, and other research outputs. It can preserve GitHub repositories."
+    },
+    {
+      title: "Harvard Dataverse",
+      url: "https://dataverse.harvard.edu",
+      badge: "Research Data",
+      bestFor: "Research datasets and replication materials",
+      subCategory: "Research Outputs & Repositories",
+      desc: "An open research data repository to share, cite, and analyze research data across all disciplines."
+    },
+    {
+      title: "OATD",
+      url: "https://oatd.org",
+      badge: "Thesis Finder",
+      bestFor: "Thesis literature reviews",
+      subCategory: "Thesis and Dissertation",
+      desc: "The best specialised option for discovering open-access theses and dissertations."
+    },
+    {
+      title: "EThOS",
+      url: "https://ethos.bl.uk",
+      badge: "UK Theses",
+      bestFor: "UK doctoral research",
+      subCategory: "Thesis and Dissertation",
+      desc: "Useful for doctoral theses from UK universities."
+    },
+    {
+      title: "Unpaywall",
+      url: "https://unpaywall.org",
+      badge: "Legal Access",
+      bestFor: "Finding a free legal version",
+      subCategory: "Legal Access & Research Networks",
+      desc: "Helps students locate legally available open-access copies of papers."
+    },
+    {
+      title: "ResearchGate",
+      url: "https://www.researchgate.net",
+      badge: "Research Network",
+      bestFor: "Connecting with researchers",
+      subCategory: "Legal Access & Research Networks",
+      desc: "Useful for author profiles, uploaded papers, research projects, and requesting full text from authors."
+    },
+    {
+      title: "JSTOR",
+      url: "https://www.jstor.org",
+      badge: "Partly Free",
+      bestFor: "Archived academic literature",
+      subCategory: "Legal Access & Research Networks",
+      desc: "Useful for social science, history, economics, humanities, and interdisciplinary research. Note: Some content may require institutional access."
+    },
+  ],
+  learning: [
+    { title: "Seeing Theory", url: "https://seeing-theory.brown.edu/", badge: "Stats Visuals", bestFor: "Interactive probability & statistics", desc: "A beautiful visual introduction to probability and statistics concepts from Brown University." },
+    { title: "Captain Viz Inspirations", url: "https://captainviz.com/inspirations", badge: "Data Viz", bestFor: "Data visualization designs", desc: "Curated dashboard designs and data visualization inspirations." },
+    { title: "Workout Wednesday", url: "https://www.workout-wednesday.com/power-bi-challenges/", badge: "Power BI", bestFor: "Weekly business intelligence challenges", desc: "Weekly hands-on challenges to test and improve your Power BI and Tableau skills." },
+    { title: "MLU-Explain", url: "https://mlu-explain.github.io/", badge: "ML Visuals", bestFor: "Visual machine learning concepts", desc: "Visual and interactive explainers of core machine learning concepts by Amazon's ML University." },
+    { title: "ML Visualized", url: "https://mlvisualized.com/", badge: "ML Math", bestFor: "Visual machine learning mathematics", desc: "Beautifully visualized math foundations behind machine learning models." },
+    { title: "Stats Kingdom Visualization", url: "https://www.statskingdom.com/visualization.html", badge: "Stats Tools", bestFor: "Interactive stats calculators", desc: "Interactive statistical calculators and distribution visualizations." },
+    { title: "PyNative", url: "https://pynative.com/python/", badge: "Python Code", bestFor: "Python exercises & quizzes", desc: "Hands-on Python programming tutorials, exercises, and interactive quizzes." },
+    { title: "R-Coder", url: "https://r-coder.com/", badge: "R Code", bestFor: "R statistics tutorials", desc: "Complete guides and tutorials for stats and data science in R." },
+    { title: "GeeksforGeeks Data Science", url: "https://www.geeksforgeeks.org/data-science/data-science-for-beginners/", badge: "DS Basics", bestFor: "Data science tutorials", desc: "A comprehensive beginner-friendly road map for learning data science basics." },
+    { title: "Melbourne Applets", url: "https://melbapplets.ms.unimelb.edu.au/", badge: "Interactive Math", bestFor: "Mathematical applets", desc: "Interactive mathematical and statistical applets by University of Melbourne." },
+    { title: "Teachable Machine", url: "https://teachablemachine.withgoogle.com/", badge: "AI Builder", bestFor: "No-code model training", desc: "A fast, easy way to create machine learning models for your sites, apps, and more with no code." },
+    { title: "SQLZoo", url: "https://www.sqlzoo.net/wiki/SQL_Tutorial", badge: "SQL Tutorials", bestFor: "Interactive database queries", desc: "Interactive online SQL tutorials and quizzes to learn database programming." },
+    { title: "CNN Explainer", url: "https://poloclub.github.io/cnn-explainer/", badge: "Deep Learning", bestFor: "Convolutional neural network visualization", desc: "Interactive visualization of how convolutional neural networks (CNNs) process images." },
+    { title: "Transformer Explainer", url: "https://poloclub.github.io/transformer-explainer/", badge: "Transformers", bestFor: "LLM architecture visualization", desc: "Interactive visual explainer of how transformer models like GPT work, step by step." },
+    { title: "TensorFlow Playground", url: "https://playground.tensorflow.org/#activation=tanh&batchSize=10&dataset=circle&regDataset=reg-plane&learningRate=0.03&regularizationRate=0&noise=0&networkShape=4,2&seed=0.38855&showTestData=false&discretize=false&percTrainData=50&x=true&y=true&xTimesY=false&xSquared=false&ySquared=false&cosX=false&sinX=false&cosY=false&sinY=false&collectStats=false&problem=classification&initZero=false&hideText=false", badge: "Neural Network", bestFor: "Interactive neural net tuning", desc: "An interactive browser-based visualization of neural networks training in real-time." }
+  ],
+  tools: [
+    { title: "Tesla Autopilot", url: "https://www.tesla.com/autopilot", badge: "Autonomous", bestFor: "Object detection, lane recognition and driving assistance", subCategory: "Data Science in Everyday Life", desc: "" },
+    { title: "Google Maps", url: "https://maps.google.com/", badge: "Prediction", bestFor: "Traffic prediction, route optimisation and ETA estimation", subCategory: "Data Science in Everyday Life", desc: "" },
+    { title: "YouTube", url: "https://www.youtube.com/", badge: "Recommender", bestFor: "Video ranking and content recommendations", subCategory: "Data Science in Everyday Life", desc: "" },
+    { title: "Amazon", url: "https://www.amazon.com/", badge: "Personalisation", bestFor: "Product recommendations and personalised search", subCategory: "Data Science in Everyday Life", desc: "" },
+    { title: "Google Translate", url: "https://translate.google.com/", badge: "Translation", bestFor: "NLP and neural machine translation", subCategory: "Translation & Language", desc: "" },
+    { title: "DeepL Translator", url: "https://www.deepl.com/translator", badge: "Deep Learning", bestFor: "Deep learning–based translation", subCategory: "Translation & Language", desc: "" },
+    { title: "Grammarly", url: "https://www.grammarly.com/", badge: "NLP", bestFor: "Grammar checking, rewriting and writing suggestions", subCategory: "Translation & Language", desc: "" },
+    { title: "Google Lens", url: "https://lens.google/", badge: "Vision", bestFor: "Visual search, OCR and object recognition", subCategory: "Computer Vision & Imaging", desc: "" },
+    { title: "MediaPipe", url: "https://google-ai-edge.github.io/mediapipe-samples-web/#/vision/object_detector", badge: "Real-time", bestFor: "Face, hand and pose detection", subCategory: "Computer Vision & Imaging", desc: "" },
+    { title: "remove.bg", url: "https://www.remove.bg/", badge: "Segmentation", bestFor: "Image segmentation and background removal", subCategory: "Computer Vision & Imaging", desc: "" },
+    { title: "ElevenLabs", url: "https://elevenlabs.io/text-to-speech", badge: "Text-to-Speech", bestFor: "Text-to-Speech", subCategory: "Speech & Audio", desc: "" },
+    { title: "Deepgram Playground", url: "https://playground.deepgram.com/", badge: "Speech-to-Text", bestFor: "Speech-to-Text, Automatic Speech Recognition", subCategory: "Speech & Audio", desc: "" },
+    { title: "ChatGPT", url: "https://chatgpt.com/", badge: "LLM", bestFor: "Generative AI, LLMs, NLP", subCategory: "Create with Generative Models", desc: "" },
+    { title: "Google Gemini", url: "https://gemini.google.com/", badge: "Multimodal", bestFor: "Multimodal AI, LLMs", subCategory: "Create with Generative Models", desc: "" },
+    { title: "Runway", url: "https://runway.com/", badge: "Video Gen", bestFor: "Generative AI, Text-to-Video", subCategory: "Create with Generative Models", desc: "" },
+    { title: "MusicFX", url: "https://labs.google/fx/tools/music-fx", badge: "Music Gen", bestFor: "Generative AI, Text-to-Music", subCategory: "Create with Generative Models", desc: "" },
+    { title: "Teachable Machine", url: "https://teachablemachine.withgoogle.com/", badge: "No-Code AI", bestFor: "No-code image, sound and pose classification", subCategory: "Train & Test Models", desc: "" },
+    { title: "Roboflow Playground", url: "https://playground.roboflow.com/models", badge: "Computer Vision", bestFor: "Object detection and image classification", subCategory: "Train & Test Models", desc: "" },
+    { title: "Semantris", url: "https://research.google.com/semantris/", badge: "NLP Game", bestFor: "NLP, Word Embeddings and Semantic Similarity", subCategory: "Play & Experiment", desc: "" },
+    { title: "AutoDraw", url: "https://www.autodraw.com/", badge: "Vision", bestFor: "Sketch Recognition and Computer Vision", subCategory: "Play & Experiment", desc: "" },
+    { title: "Infinite Drum Machine", url: "https://experiments.withgoogle.com/ai/drum-machine/view/", badge: "Audio ML", bestFor: "Audio embeddings and clustering", subCategory: "Play & Experiment", desc: "" },
+  ],
+};
+
 export default function Home() {
   const [slideIndex, setSlideIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [activeTab, setActiveTab] = useState<"datasets" | "papers" | "learning" | "tools">("tools");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const groupedPapers = resourceHub.papers
+    .filter(r =>
+      r.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      r.desc.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .reduce((acc, curr) => {
+      const cat = curr.subCategory || "General";
+      if (!acc[cat]) acc[cat] = [];
+      acc[cat].push(curr);
+      return acc;
+    }, {} as Record<string, typeof resourceHub.papers>);
+
+  const groupedTools = resourceHub.tools
+    .filter(r =>
+      r.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      r.desc.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      r.bestFor.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .reduce((acc, curr) => {
+      const cat = curr.subCategory || "General";
+      if (!acc[cat]) acc[cat] = [];
+      acc[cat].push(curr);
+      return acc;
+    }, {} as Record<string, typeof resourceHub.tools>);
 
   useEffect(() => {
     if (!isPlaying) return;
@@ -94,7 +305,7 @@ export default function Home() {
     <div className="flex min-h-screen flex-col space-y-20 md:space-y-28">
 
       {/* ═══ HERO ═══ */}
-      <section className="w-screen relative left-1/2 -translate-x-1/2 -mt-8 pt-0 pb-12">
+      <section className="relative left-1/2 -mt-8 w-screen -translate-x-1/2 pb-12 pt-0">
         <div className="w-full relative bg-slate-950 min-h-[100vh] md:min-h-[520px] md:aspect-[21/9] md:overflow-hidden flex flex-col md:block py-16 md:py-0">
           {/* Background Image */}
           <Image
@@ -173,7 +384,7 @@ export default function Home() {
         </div>
 
         {/* Slide Frame */}
-        <div className="relative w-full max-w-4xl aspect-[16/9] bg-[#090d16] rounded-2xl overflow-hidden shadow-2xl border border-slate-800">
+        <div className="relative w-[calc(100%+32px)] md:w-full -mx-[16px] md:mx-0 max-w-4xl aspect-[16/9] bg-[#090d16] rounded-none md:rounded-2xl overflow-hidden shadow-2xl border-y border-slate-800 md:border">
           <div className="relative w-full h-full">
             <Image
               src={gallerySlides[slideIndex].src}
@@ -206,10 +417,10 @@ export default function Home() {
           {/* Left Navigation */}
           <button
             onClick={handlePrev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-2.5 rounded-full bg-black/50 hover:bg-black/75 text-white backdrop-blur-sm transition-colors border border-white/10"
+            className="absolute left-2.5 md:left-4 top-1/2 -translate-y-1/2 z-20 p-1.5 md:p-2.5 rounded-full bg-black/50 hover:bg-black/75 text-white backdrop-blur-sm transition-colors border border-white/10"
             aria-label="Previous image"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 md:w-6 md:h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
             </svg>
           </button>
@@ -217,10 +428,10 @@ export default function Home() {
           {/* Right Navigation */}
           <button
             onClick={handleNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-2.5 rounded-full bg-black/50 hover:bg-black/75 text-white backdrop-blur-sm transition-colors border border-white/10"
+            className="absolute right-2.5 md:right-4 top-1/2 -translate-y-1/2 z-20 p-1.5 md:p-2.5 rounded-full bg-black/50 hover:bg-black/75 text-white backdrop-blur-sm transition-colors border border-white/10"
             aria-label="Next image"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 md:w-6 md:h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
             </svg>
           </button>
@@ -233,9 +444,6 @@ export default function Home() {
             <h3 className="text-base sm:text-xl md:text-2xl font-extrabold mb-1 tracking-tight font-space-grotesk leading-snug">
               {gallerySlides[slideIndex].title}
             </h3>
-            <p className="text-xs sm:text-sm text-gray-300 font-normal leading-relaxed line-clamp-2">
-              {gallerySlides[slideIndex].desc}
-            </p>
           </div>
         </div>
 
@@ -293,7 +501,7 @@ export default function Home() {
       </section>
 
       {/* ═══ WHY JOIN ═══ */}
-      <section className="w-full rounded-2xl bg-gradient-to-b from-slate-50 to-white border border-slate-100/80 p-8 md:p-12 py-16 md:py-20">
+      <section className="w-auto -mx-[16px] md:mx-0 md:w-full rounded-none md:rounded-2xl bg-gradient-to-b from-slate-50 to-white border-y md:border border-slate-100/80 px-4 py-16 md:p-12 md:py-20">
         <div className="mx-auto mb-12 max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl font-space-grotesk text-slate-900">
             Why Join <span className="text-blue-600 font-extrabold">PUST Data Science Club</span>?
@@ -320,7 +528,7 @@ export default function Home() {
               desc: "Collaborate with students across departments and connect with seniors, alumni, researchers and industry professionals for mentorship and career insights.",
             },
           ].map(({ Icon, title, desc }) => (
-            <div key={title} className="rounded-2xl border border-slate-100 bg-white p-8 shadow-sm">
+            <div key={title} className="rounded-2xl border border-slate-100 bg-white p-6 md:p-8 shadow-sm">
               <div className="flex items-center gap-3 mb-4">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
                   <Icon className="w-5 h-5" strokeWidth={1.75} />
@@ -334,33 +542,236 @@ export default function Home() {
       </section>
 
       {/* ═══ SKILLS SHOWCASE ═══ */}
-      <section className="w-screen relative left-1/2 -translate-x-1/2 py-16 md:py-20 overflow-hidden bg-gradient-to-b from-white via-blue-50/30 to-white">
+      <section className="w-auto -mx-[16px] md:mx-0 md:w-full py-16 md:py-20 overflow-hidden bg-gradient-to-b from-white via-blue-50/30 to-white">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(37,99,235,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(37,99,235,0.06)_1px,transparent_1px)] bg-[size:48px_48px]" />
         <div className="relative mx-auto max-w-[1440px] px-5 sm:px-10 lg:px-8 xl:px-0">
-        <div className="mx-auto mb-10 max-w-2xl text-center">
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-space-grotesk text-blue-600">
-            Skills We Cover
-          </h2>
-          <p className="mt-4 text-slate-500 font-medium">
-            A visual tour of the tools, methods and thinking patterns we practice in workshops, projects and research sessions.
-          </p>
-        </div>
-
-        <div className="marquee-wrapper flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-          <div className="marquee-track marquee-left">
-            {[...skillShowcase, ...skillShowcase].map(({ label, logo }, i) => (
-              <div key={`${label}-${i}`} className="mx-3 flex min-w-[168px] shrink-0 items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
-                <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-slate-50">
-                  <Image src={logo} alt={`${label} logo`} width={32} height={32} className="h-8 w-8 object-contain" />
-                </span>
-                <span className="text-sm font-bold text-slate-800 font-space-grotesk whitespace-nowrap">{label}</span>
-              </div>
-            ))}
+          <div className="mx-auto mb-10 max-w-2xl text-center">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-space-grotesk text-blue-600">
+              Skills We Cover
+            </h2>
+            <p className="mt-4 text-slate-500 font-medium">
+              A visual tour of the tools, methods and thinking patterns we practice in workshops, projects and research sessions.
+            </p>
           </div>
-        </div>
+
+          <div className="marquee-wrapper flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+            <div className="marquee-track marquee-left">
+              {[...skillShowcase, ...skillShowcase].map(({ label, logo }, i) => (
+                <div key={`${label}-${i}`} className="mx-2 md:mx-3 flex min-w-[120px] md:min-w-[168px] shrink-0 items-center gap-2 md:gap-3 rounded-lg md:rounded-xl border border-slate-200 bg-white px-2.5 py-2 md:px-4 md:py-3 shadow-sm">
+                  <span className="relative flex h-8 w-8 md:h-11 md:w-11 shrink-0 items-center justify-center rounded-md md:rounded-lg bg-slate-50">
+                    <Image src={logo} alt={`${label} logo`} width={32} height={32} className="h-5 w-5 md:h-8 md:w-8 object-contain" />
+                  </span>
+                  <span className="text-xs md:text-sm font-bold text-slate-800 font-space-grotesk whitespace-nowrap">{label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
+
+
+      {/* ═══ EXPLORER HUB ═══ */}
+      <section className="relative w-auto -mx-[16px] overflow-hidden border-y border-slate-200 bg-[#f4f4f4] px-4 py-16 md:mx-0 md:w-full md:rounded-2xl md:border md:px-10 md:py-24 lg:px-14">
+        <div className="relative mx-auto max-w-6xl">
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <div>
+              <h2 className="font-space-grotesk text-3xl font-bold tracking-[-0.035em] text-[#171a20] sm:text-4xl md:text-5xl">
+                Explore the World of{" "}
+                <span className="text-blue-600">Data Science</span>
+              </h2>
+              <p className="mx-auto mt-5 max-w-2xl text-sm font-normal leading-7 text-slate-600 md:text-base">
+                Discover datasets, research tools, learning platforms, and real-world applications designed to help you learn, practise, and build.
+              </p>
+            </div>
+          </div>
+
+          <div className="rounded-lg border border-slate-200 bg-white p-1.5 shadow-sm sm:rounded-xl">
+            <div className="grid grid-cols-2 gap-1.5 sm:gap-2 lg:grid-cols-4">
+              {([
+                { key: "tools", label: "Try Technology", icon: Cpu },
+                { key: "learning", label: "Learning Pathway", icon: BrainCircuit },
+                { key: "datasets", label: "Datasets", icon: Database },
+                { key: "papers", label: "Research", icon: FileText },
+              ] as const).map(({ key, label, icon: Icon }) => {
+                const isTabActive = activeTab === key;
+                return (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => {
+                      setActiveTab(key);
+                      setSearchQuery("");
+                    }}
+                    aria-pressed={isTabActive}
+                    className={`group flex min-w-0 items-center gap-1.5 rounded px-2 py-1.5 text-left transition-all duration-200 sm:gap-2 sm:rounded-md sm:px-3 sm:py-2.5 ${isTabActive ? "bg-[#171a20] text-white" : "text-slate-700 hover:bg-slate-100"
+                      }`}
+                  >
+                    <span className={`flex h-6.5 w-6.5 shrink-0 items-center justify-center rounded transition-colors sm:h-8 sm:w-8 sm:rounded-md ${isTabActive ? "bg-white/10 text-white" : "bg-slate-100 text-slate-600 group-hover:bg-slate-200"
+                      }`}>
+                      <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                    </span>
+                    <span className="whitespace-nowrap text-[10px] font-bold sm:text-[11px] md:text-xs">{label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-sm font-semibold text-[#171a20]">Curated for students</p>
+              <p className="mt-1 text-xs text-slate-500">{resourceHub[activeTab].length} resources in this collection</p>
+            </div>
+            <label className="relative block w-full sm:w-72">
+              <span className="sr-only">Search resources</span>
+              <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+              <input
+                type="search"
+                placeholder="Search this collection..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="h-11 w-full rounded-md border border-slate-300 bg-white pl-11 pr-4 text-xs font-medium text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-slate-500 focus:ring-2 focus:ring-slate-200"
+              />
+            </label>
+          </div>
+
+          {/* Resources Grid */}
+          <div className="mt-7 w-full min-h-[260px]">
+            <AnimatePresence mode="popLayout">
+              {activeTab === "papers" ? (
+                <div className="space-y-8 w-full">
+                  {Object.entries(groupedPapers).map(([categoryName, items]) => (
+                    <div key={categoryName} className="space-y-4">
+                      <h3 className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                        <span className="h-px w-8 bg-slate-300" />
+                        {categoryName}
+                      </h3>
+                      <div className="grid grid-cols-2 gap-2 lg:grid-cols-4 xl:grid-cols-5">
+                        {items.map((resource) => (
+                          <motion.a
+                            key={resource.title}
+                            href={resource.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            layout
+                            initial={{ opacity: 0, y: 12 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 8 }}
+                            className="group flex items-center justify-between rounded-md border border-slate-200 bg-white px-3 py-2.5 transition-all duration-200 hover:-translate-y-0.5 hover:border-slate-400 hover:shadow-sm"
+                          >
+                            <h4 className="truncate font-space-grotesk text-xs font-bold text-[#171a20] transition-colors group-hover:text-blue-600">
+                              {resource.title}
+                            </h4>
+                            <ExternalLink className="ml-2 h-3 w-3 shrink-0 text-slate-400 transition-colors group-hover:text-blue-600" />
+                          </motion.a>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                  {Object.keys(groupedPapers).length === 0 && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="py-12 text-center text-xs text-slate-400 font-semibold"
+                    >
+                      No matching resources found.
+                    </motion.div>
+                  )}
+                </div>
+              ) : activeTab === "tools" ? (
+                <div className="space-y-4 w-full">
+                  {Object.entries(groupedTools).map(([categoryName, items]) => (
+                    <div key={categoryName} className="space-y-2">
+                      <h3 className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                        <span className="h-px w-6 bg-slate-300" />
+                        {categoryName}
+                      </h3>
+                      <div className="grid grid-cols-2 gap-2 lg:grid-cols-4 xl:grid-cols-5">
+                        {items.map((resource) => (
+                          <motion.a
+                            key={resource.title}
+                            href={resource.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            layout
+                            initial={{ opacity: 0, y: 6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 4 }}
+                            className="group flex items-center justify-between rounded-md border border-slate-200 bg-white px-3 py-2 transition-all duration-200 hover:-translate-y-0.5 hover:border-slate-400 hover:shadow-sm"
+                          >
+                            <div className="min-w-0 pr-1.5">
+                              <span className="block truncate font-space-grotesk text-xs font-bold text-[#171a20] transition-colors group-hover:text-blue-600">
+                                {resource.title}
+                              </span>
+                              <span className="block truncate text-[10px] text-slate-400 font-medium leading-tight">
+                                {resource.bestFor}
+                              </span>
+                            </div>
+                            <ExternalLink className="h-3 w-3 shrink-0 text-slate-400 transition-colors group-hover:text-blue-600" />
+                          </motion.a>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                  {Object.keys(groupedTools).length === 0 && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="py-12 text-center text-xs text-slate-400 font-semibold"
+                    >
+                      No matching resources found.
+                    </motion.div>
+                  )}
+                </div>
+              ) : (
+                <div className={`grid w-full gap-2 ${activeTab === "learning"
+                  ? "grid-cols-2 lg:grid-cols-4 xl:grid-cols-5"
+                  : "sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5"
+                  }`}>
+                  {resourceHub[activeTab]
+                    .filter(r =>
+                      r.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                      r.desc.toLowerCase().includes(searchQuery.toLowerCase())
+                    )
+                    .map((resource) => (
+                      <motion.a
+                        key={resource.title}
+                        href={resource.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        layout
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 8 }}
+                        className="group flex items-center justify-between rounded-md border border-slate-200 bg-white px-3 py-2.5 transition-all duration-200 hover:-translate-y-0.5 hover:border-slate-400 hover:shadow-sm"
+                      >
+                        <h4 className="truncate font-space-grotesk text-xs font-bold text-[#171a20] transition-colors group-hover:text-blue-600">
+                          {resource.title}
+                        </h4>
+                        <ExternalLink className="ml-2 h-3 w-3 shrink-0 text-slate-400 transition-colors group-hover:text-blue-600" />
+                      </motion.a>
+                    ))
+                  }
+                  {resourceHub[activeTab].filter(r =>
+                    r.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    r.desc.toLowerCase().includes(searchQuery.toLowerCase())
+                  ).length === 0 && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="col-span-2 lg:col-span-3 py-12 text-center text-xs text-slate-400 font-semibold"
+                      >
+                        No matching resources found.
+                      </motion.div>
+                    )}
+                </div>
+              )}
+            </AnimatePresence>
+          </div>
+
+        </div>
+      </section>
 
       {/* ═══ CTA ═══ */}
       <section className="w-full py-4 flex flex-col items-center">

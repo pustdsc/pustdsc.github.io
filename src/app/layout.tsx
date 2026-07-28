@@ -5,7 +5,7 @@ import "./globals.css";
 import Header from "../components/Header";
 
 export const metadata: Metadata = {
-  title: "PUST Data Science Club Ã¢â‚¬â€œ Mapping the Future Through Data",
+  title: "PUST Data Science Club",
   description:
     "Official platform of the PUST Data Science Club at Pabna University of Science and Technology. Supporting student research, data analytics, ML/AI training, and career mentorship.",
 };
@@ -115,10 +115,10 @@ export default function RootLayout({
                     { label: "Linktree", href: "https://linktr.ee/pustdsc", icon: "/icons/social/linktree.svg" },
                   ].map((s) => (
                     <a
-                    key={s.href}
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                      key={s.href}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-xs font-semibold text-slate-600 transition-all hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600"
                     >
                       <Image src={s.icon} alt="" width={14} height={14} className="h-3.5 w-3.5 object-contain" />

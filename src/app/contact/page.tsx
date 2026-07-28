@@ -42,9 +42,9 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="w-full rounded-2xl border border-slate-100 bg-gradient-to-b from-slate-50 via-white to-white px-5 py-10 md:px-8 md:py-14">
+      <section className="w-auto -mx-[16px] md:mx-0 md:w-full rounded-none md:rounded-2xl border-y md:border border-slate-100 bg-gradient-to-b from-slate-50 via-white to-white px-0 py-10 md:px-8 md:py-14">
         <div className="mx-auto max-w-6xl space-y-6">
-          <div className="overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm">
+          <div className="overflow-hidden rounded-none md:rounded-2xl border-y md:border border-blue-100 bg-white shadow-sm">
             <div className="flex flex-col gap-5 bg-gradient-to-r from-blue-600 to-indigo-600 p-6 text-white md:flex-row md:items-center md:justify-between md:p-8">
               <div className="flex items-center gap-4">
                 <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-white shadow-sm">
@@ -74,7 +74,7 @@ export default function Contact() {
                 href={item.href}
                 target={item.href.startsWith("http") ? "_blank" : undefined}
                 rel={item.href.startsWith("http") ? "noreferrer" : undefined}
-                className="flex items-start gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50/40 hover:shadow-md"
+                className="flex items-start gap-4 rounded-none md:rounded-2xl border-y md:border border-slate-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50/40 hover:shadow-md"
               >
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-50 shadow-sm">
                   <Image src={item.icon} alt="" width={22} height={22} className="h-5.5 w-5.5 object-contain" />
@@ -88,7 +88,7 @@ export default function Contact() {
             ))}
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <div className="rounded-none md:rounded-2xl border-y md:border border-slate-200 bg-white p-5 shadow-sm">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div>
                 <h3 className="font-space-grotesk text-lg font-bold text-blue-600">Follow Our Community</h3>
@@ -111,7 +111,7 @@ export default function Contact() {
             </div>
           </div>
 
-          <section className="overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm">
+          <section className="overflow-hidden rounded-none md:rounded-2xl border-y md:border border-blue-100 bg-white shadow-sm">
             <div className="flex flex-col gap-4 border-b border-slate-100 bg-gradient-to-r from-blue-50 via-white to-white p-6 md:flex-row md:items-center md:justify-between md:p-8">
               <div>
                 <h2 className="font-space-grotesk text-2xl font-extrabold text-blue-600">Send Us a Message</h2>
@@ -130,7 +130,7 @@ export default function Contact() {
             </div>
 
             <div className="bg-white">
-              <div className="h-[860px] overflow-hidden bg-white">
+              <div className="h-[980px] md:h-[860px] overflow-hidden bg-white">
                 <iframe
                   src={contactFormUrl}
                   title="PUST DSC Contact Form"
