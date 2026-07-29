@@ -305,8 +305,8 @@ export default function Home() {
     <div className="flex min-h-screen flex-col space-y-20 md:space-y-28">
 
       {/* ═══ HERO ═══ */}
-      <section className="relative left-1/2 -mt-8 w-screen -translate-x-1/2 pb-12 pt-0">
-        <div className="w-full relative bg-slate-950 min-h-[100vh] md:min-h-[520px] md:aspect-[21/9] md:overflow-hidden flex flex-col md:block py-16 md:py-0">
+      <section className="relative -mx-[16px] sm:-mx-[20px] lg:-mx-[32px] -mt-8 pb-12 pt-0">
+        <div className="w-full relative bg-slate-950 min-h-[85vh] md:min-h-[520px] md:aspect-[21/9] md:overflow-hidden flex flex-col md:block py-12 md:py-0">
           {/* Background Image */}
           <Image
             src="/images/events/inaug-IMG20250226122024.jpg"
@@ -331,7 +331,7 @@ export default function Home() {
                   </span>
                 </div>
                 <h1 className="font-space-grotesk text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.14] tracking-tight">
-                  From Statistics to AI, <br className="hidden sm:inline" />
+                  From Data Science to AI, <br className="hidden sm:inline" />
                   We Learn by <span className="text-blue-400 font-extrabold">Building</span>.
                 </h1>
                 <div className="w-20 h-[1.5px] bg-blue-500 rounded"></div>
@@ -343,16 +343,16 @@ export default function Home() {
               {/* Bottom Section: Buttons & Stats grouped close together */}
               <div className="space-y-6 w-full lg:max-w-2xl">
                 {/* Buttons (first) */}
-                <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                <div className="relative z-20 pointer-events-auto flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
                   <Link
                     href="/committee"
-                    className="w-full sm:w-auto inline-flex h-11 items-center justify-center rounded-lg bg-blue-600 px-6 text-sm font-semibold text-white transition-colors hover:bg-blue-700 shadow-sm"
+                    className="relative z-20 cursor-pointer w-full sm:w-auto inline-flex h-11 items-center justify-center rounded-lg bg-blue-600 px-6 text-sm font-semibold text-white transition-all hover:bg-blue-700 active:scale-95 shadow-sm"
                   >
                     Our Team
                   </Link>
                   <Link
                     href="/membership"
-                    className="w-full sm:w-auto inline-flex h-11 items-center justify-center rounded-lg border border-white/20 bg-white/10 backdrop-blur-xs px-6 text-sm font-semibold text-white transition-colors hover:bg-white/20"
+                    className="relative z-20 cursor-pointer w-full sm:w-auto inline-flex h-11 items-center justify-center rounded-lg border border-white/20 bg-white/10 backdrop-blur-sm px-6 text-sm font-semibold text-white transition-all hover:bg-white/20 active:scale-95"
                   >
                     Join Us
                   </Link>
@@ -492,7 +492,7 @@ export default function Home() {
         <div className="mt-8 flex justify-center">
           <Link
             href="/gallery"
-            className="inline-flex h-11 items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-8 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-500/30"
+            className="inline-flex h-11 items-center justify-center rounded-xl bg-blue-600 bg-gradient-to-r from-blue-600 to-indigo-600 px-8 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-500/30"
           >
             View Full Gallery
             <svg className="ml-2 h-4 w-4 animate-pulse" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-7-7 7 7-7 7" /></svg>
@@ -820,17 +820,17 @@ export default function Home() {
           <p className="mx-auto mb-8 max-w-2xl text-base md:text-lg text-slate-500 font-medium">
             Whether you are a beginner or already exploring data science, join PUST DSC to learn through workshops, projects, competitions, research and industry connections.
           </p>
-          <div className="flex flex-col justify-center gap-4 sm:flex-row">
+          <div className="relative z-20 pointer-events-auto flex flex-col justify-center gap-4 sm:flex-row">
             <Link
               href="/membership"
-              className="inline-flex h-11 items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-8 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-500/30"
+              className="relative z-20 cursor-pointer w-full sm:w-auto inline-flex h-11 items-center justify-center rounded-xl bg-blue-600 bg-gradient-to-r from-blue-600 to-indigo-600 px-8 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition-all hover:-translate-y-0.5 active:scale-95 hover:shadow-xl hover:shadow-blue-500/30"
             >
               Join PUST DSC
               <svg className="ml-2 h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="m9 18 6-6-6-6" /></svg>
             </Link>
             <Link
               href="/contact"
-              className="inline-flex h-11 items-center justify-center rounded-xl border border-slate-200 bg-white px-8 text-sm font-semibold text-slate-600 shadow-sm transition-all hover:-translate-y-0.5 hover:bg-slate-50 hover:text-slate-950"
+              className="relative z-20 cursor-pointer w-full sm:w-auto inline-flex h-11 items-center justify-center rounded-xl border border-slate-200 bg-white px-8 text-sm font-semibold text-slate-600 shadow-sm transition-all hover:-translate-y-0.5 active:scale-95 hover:bg-slate-50 hover:text-slate-950"
             >
               Talk to Us
             </Link>

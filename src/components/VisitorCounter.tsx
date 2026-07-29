@@ -16,25 +16,33 @@ export default function VisitorCounter({
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchVisitorCount = async () => {
       const NAMESPACE = "pustdsc-website";
       const KEY = "total-visitors";
       const STORAGE_KEY = "pustdsc_visited_session";
+
+      // 1. Immediately hydrate cached value to prevent zero or layout shift
+      const cached = localStorage.getItem("pustdsc_cached_visitor_count");
+      if (cached && isMounted) {
+        setCount(parseInt(cached, 10));
+      }
 
       try {
         const hasVisited = sessionStorage.getItem(STORAGE_KEY);
         let endpoint = `https://api.counterapi.dev/v1/${NAMESPACE}/${KEY}`;
 
         if (!hasVisited) {
-          // Increment counter on new session
+          // Increment counter once per session
           endpoint += "/up";
           sessionStorage.setItem(STORAGE_KEY, "true");
         }
 
-        const res = await fetch(endpoint);
+        const res = await fetch(endpoint, { cache: "no-store" });
         if (res.ok) {
           const data = await res.json();
-          if (typeof data.count === "number") {
+          if (typeof data.count === "number" && isMounted) {
             setCount(data.count);
             localStorage.setItem("pustdsc_cached_visitor_count", String(data.count));
             setIsLoading(false);
@@ -42,17 +50,21 @@ export default function VisitorCounter({
           }
         }
       } catch (err) {
-        console.warn("Visitor counter API offline, using fallback cache/estimate:", err);
+        console.warn("Visitor counter sync using cached baseline:", err);
       }
 
-      // Fallback: Read cached count or set realistic starting baseline
-      const cached = localStorage.getItem("pustdsc_cached_visitor_count");
-      const baseCount = cached ? parseInt(cached, 10) : 1420;
-      setCount(baseCount);
-      setIsLoading(false);
+      if (isMounted) {
+        const finalCount = cached ? parseInt(cached, 10) : 35;
+        setCount(finalCount);
+        setIsLoading(false);
+      }
     };
 
     fetchVisitorCount();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   if (variant === "hero") {

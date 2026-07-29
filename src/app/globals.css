@@ -74,3 +74,19 @@
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none !important; }
 }
+
+/* ─── Smartboard & Older Android Browser Compatibility ─── */
+.gradient-text-blue {
+  color: #2563eb;
+  background-image: linear-gradient(to right, #2563eb, #4f46e5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@supports not (-webkit-background-clip: text) {
+  .gradient-text-blue {
+    color: #2563eb !important;
+    -webkit-text-fill-color: #2563eb !important;
+  }
+}
