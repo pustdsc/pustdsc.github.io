@@ -301,11 +301,53 @@ export default function Home() {
     setSlideIndex((prev) => (prev + 1) % gallerySlides.length);
   };
 
+  // Homepage Recruitment Countdown Banner State & Logic (100% Synced with RecruitmentForm)
+  const [recruitmentBannerState, setRecruitmentBannerState] = useState<"upcoming" | "open" | "ended">("upcoming");
+  const [bannerTimeLeft, setBannerTimeLeft] = useState<{ days: number; hours: number; minutes: number; seconds: number } | null>(null);
+
+  useEffect(() => {
+    const calculateTimeLeft = () => {
+      const startDate = new Date("2026-08-02T22:00:00+06:00").getTime();
+      const endDate = new Date("2026-08-05T23:59:59+06:00").getTime();
+      const now = new Date().getTime();
+
+      if (now > endDate) {
+        setRecruitmentBannerState("ended");
+        setBannerTimeLeft(null);
+        return;
+      }
+
+      if (now >= startDate && now <= endDate) {
+        const diff = endDate - now;
+        setRecruitmentBannerState("open");
+        setBannerTimeLeft({
+          days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((diff / (1000 * 60)) % 60),
+          seconds: Math.floor((diff / 1000) % 60),
+        });
+      } else {
+        const diff = startDate - now;
+        setRecruitmentBannerState("upcoming");
+        setBannerTimeLeft({
+          days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((diff / (1000 * 60)) % 60),
+          seconds: Math.floor((diff / 1000) % 60),
+        });
+      }
+    };
+
+    calculateTimeLeft();
+    const interval = setInterval(calculateTimeLeft, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="flex min-h-screen flex-col space-y-20 md:space-y-28">
 
       {/* ═══ HERO ═══ */}
-      <section className="relative -mx-[16px] sm:-mx-[20px] lg:-mx-[32px] -mt-8 pb-12 pt-0">
+      <section className="relative -mx-[16px] sm:-mx-[20px] lg:-mx-[32px] -mt-8 pb-4 pt-0">
         <div className="w-full relative bg-slate-950 min-h-[85vh] md:min-h-[520px] md:aspect-[21/9] md:overflow-hidden flex flex-col md:block py-12 md:py-0">
           {/* Background Image */}
           <Image
@@ -373,6 +415,59 @@ export default function Home() {
 
         </div>
       </section>
+
+      {/* ═══ RECRUITMENT COUNTDOWN BANNER (Below Hero, Vanishes after 5 Aug 23:59) ═══ */}
+      {recruitmentBannerState !== "ended" && bannerTimeLeft && (
+        <section className="-mx-[16px] sm:-mx-[20px] lg:-mx-[32px] -mt-16 sm:-mt-20 bg-slate-900 border-y border-blue-900/50 text-white relative z-30 shadow-md">
+          <div className="mx-auto max-w-7xl px-4 py-3 sm:py-4 flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
+            {/* Status Indicator & Text */}
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-2.5">
+              <span className="flex h-2.5 w-2.5 relative shrink-0">
+                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${recruitmentBannerState === "open" ? "bg-emerald-400" : "bg-blue-400"}`}></span>
+                <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${recruitmentBannerState === "open" ? "bg-emerald-500" : "bg-blue-500"}`}></span>
+              </span>
+
+              <span className={`text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded border ${
+                recruitmentBannerState === "open"
+                  ? "bg-emerald-950/80 text-emerald-300 border-emerald-800/80"
+                  : "bg-blue-950/80 text-blue-300 border-blue-800/80"
+              }`}>
+                {recruitmentBannerState === "open" ? "Recruitment Ongoing" : "Member Recruitment 2026"}
+              </span>
+
+              <p className="text-xs sm:text-sm font-semibold text-slate-200">
+                {recruitmentBannerState === "open"
+                  ? "Official Registration is LIVE & ONGOING! (3–5 August)"
+                  : "Official Member Registration Starts 3–5 August 2026"}
+              </p>
+            </div>
+
+            {/* Countdown Digits & Link */}
+            <div className="flex items-center gap-3 shrink-0">
+              <div className="flex items-center gap-1 font-mono text-xs sm:text-sm font-extrabold">
+                <span className="text-[10px] text-slate-400 font-sans uppercase font-bold mr-1">
+                  {recruitmentBannerState === "open" ? "Closes In:" : "Starts In:"}
+                </span>
+                <div className="bg-slate-950 border border-slate-800 px-2 py-0.5 rounded text-white min-w-[26px] text-center">{String(bannerTimeLeft.days).padStart(2, "0")}d</div>
+                <span>:</span>
+                <div className="bg-slate-950 border border-slate-800 px-2 py-0.5 rounded text-white min-w-[26px] text-center">{String(bannerTimeLeft.hours).padStart(2, "0")}h</div>
+                <span>:</span>
+                <div className="bg-slate-950 border border-slate-800 px-2 py-0.5 rounded text-white min-w-[26px] text-center">{String(bannerTimeLeft.minutes).padStart(2, "0")}m</div>
+                <span>:</span>
+                <div className="bg-slate-950 border border-slate-800 px-2 py-0.5 rounded text-blue-400 min-w-[26px] text-center">{String(bannerTimeLeft.seconds).padStart(2, "0")}s</div>
+              </div>
+
+              <Link
+                href="/membership#recruitment-form"
+                className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition-all active:scale-95 shadow-2xs cursor-pointer select-none"
+              >
+                <span>{recruitmentBannerState === "open" ? "Apply Now" : "Register"}</span>
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ═══ GALLERY SLIDESHOW ═══ */}
       <section className="w-full py-4 flex flex-col items-center">

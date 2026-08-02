@@ -48,15 +48,15 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen font-[Inter] text-[#0f172a] antialiased flex flex-col overflow-x-hidden">
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ HEADER Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* ——— HEADER ——— */}
         <Header />
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ MAIN Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */}
-        <main className="w-full min-h-screen px-[16px] md:px-[20px] lg:px-[32px] py-8">
+        {/* ——— MAIN ——— */}
+        <main className="w-full min-h-screen px-0 sm:px-5 md:px-8 lg:px-10 py-4 sm:py-8">
           {children}
         </main>
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ FOOTER Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* ——— FOOTER ——— */}
         <footer className="mt-auto w-full overflow-hidden bg-gradient-to-b from-white via-blue-50/60 to-slate-50 text-slate-800">
           <div className="mx-auto grid max-w-7xl gap-3 px-4 py-4 sm:px-6 lg:grid-cols-[1fr_1.1fr_0.9fr] lg:px-8 lg:py-5">
             <div className="rounded-lg border border-blue-100 bg-white p-4 shadow-sm">
