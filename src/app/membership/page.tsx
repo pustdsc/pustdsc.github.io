@@ -7,15 +7,15 @@ export default function Membership() {
 
       {/* Banner Section */}
       <section className="w-full pt-4 sm:pt-6">
-        <div className="mx-auto max-w-4xl px-0 sm:px-4">
-          <div className="relative overflow-hidden rounded-none sm:rounded-3xl border-x-0 sm:border-x border-y border-slate-200/80 bg-white p-2 sm:p-3 shadow-xs">
-            <div className="relative overflow-hidden rounded-none sm:rounded-2xl border border-slate-100 bg-slate-50">
+        <div className="mx-auto max-w-4xl px-2 sm:px-4">
+          <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-200/80 bg-white p-1.5 sm:p-3 shadow-sm">
+            <div className="relative overflow-hidden rounded-xl sm:rounded-2xl border border-slate-100 bg-slate-50 flex items-center justify-center">
               <Image
-                src="/images/banners/join us.png"
-                alt="Join PUST Data Science Club"
+                src="/images/recruitment banner.png"
+                alt="PUST Data Science Club Member Recruitment"
                 width={1200}
                 height={600}
-                className="w-full h-auto object-cover max-h-[380px]"
+                className="w-full h-auto object-contain block rounded-lg sm:rounded-xl"
                 priority
               />
             </div>
