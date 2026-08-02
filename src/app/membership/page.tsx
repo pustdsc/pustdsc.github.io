@@ -15,7 +15,7 @@ export default function Membership() {
                 alt="PUST Data Science Club Member Recruitment"
                 width={1200}
                 height={600}
-                className="w-full h-auto object-contain block rounded-lg sm:rounded-xl"
+                className="w-full h-auto object-cover object-center scale-[1.05] block rounded-lg sm:rounded-xl"
                 priority
               />
             </div>
