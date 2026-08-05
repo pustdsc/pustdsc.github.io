@@ -4,49 +4,57 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { siteData } from "@/data/data";
-import { BrainCircuit, FlaskConical, Network, Search, Database, FileText, Cpu, ExternalLink, Sparkles, Globe, Eye, Mic, Bot, Gamepad2, Smartphone, ArrowUpRight, Layers, Gift, GraduationCap, Award, CheckCircle2, Calendar } from "lucide-react";
+import { BrainCircuit, FlaskConical, Network, Search, Database, FileText, Cpu, ExternalLink, Sparkles, Globe, Eye, Mic, Bot, Gamepad2, Smartphone, ArrowUpRight, Layers, Gift, GraduationCap, Award, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const gallerySlides = [
-  // 1. Inauguration Ceremony (Feb 2025)
+  // 1. Member Recruitment 2026
   {
-    src: "/images/events/inaug-IMG20250226122024.jpg",
-    title: "Inauguration Ceremony",
-    date: "Feb 26, 2025",
-    desc: "PUST DSC core executive team during the official inauguration ceremony.",
+    src: "/images/recruitment banner.png",
+    title: "Member Recruitment 2026 (Extended)",
+    date: "August 3–8, 2026",
+    desc: "Join PUST Data Science Club! Get 1 year of free DataCamp Premium and hands-on workshops.",
+    category: "RECRUITMENT",
   },
-  // 2. AI & Data Science Career Insights & Python Mastery (May 2025)
+  // 2. Statistics Week 2026
+  {
+    src: "/images/events/statweek26.png",
+    title: "Statistics Week 2026",
+    date: "April 2026",
+    desc: "Sports week tournament featuring live fixtures and boards for Chess, Carrom, Cricket, and Football.",
+    category: "TOURNAMENT",
+  },
+  // 3. AI & Data Science Career Insights & Python Mastery
   {
     src: "/images/events/career-mastery-banner.jpg",
     title: "Career Insights & Python Mastery",
     date: "May 20, 2025",
     desc: "A seminar and masterclass focused on AI career routes and Python hands-on data operations.",
+    category: "WORKSHOP",
   },
+  // 4. Inauguration Ceremony
   {
-    src: "/images/events/career-mastery-1.jpg",
-    title: "Career Insights & Python Mastery",
-    date: "May 20, 2025",
-    desc: "Industrial session mapping key career choices for data engineers and machine learning developers.",
+    src: "/images/events/inaug-IMG20250226122024.jpg",
+    title: "Inauguration Ceremony",
+    date: "Feb 26, 2025",
+    desc: "PUST DSC core executive team during the official inauguration ceremony.",
+    category: "CEREMONY",
   },
-  // 4. Visit with Advisors (July 2026)
+  // 5. Visit with Advisors
   {
     src: "/images/events/Visit with advisors.jpg",
-    title: "Visit with Advisors",
+    title: "Visit with Faculty Advisors",
     date: "July 23, 2026",
-    desc: "Club members and faculty advisors during a special visit.",
+    desc: "Club members and faculty advisors during a special strategic visit.",
+    category: "MEETUP",
   },
-  // 5. Handover Ceremony (July 2026)
+  // 6. Executive Committee Handover
   {
     src: "/images/events/handover-IMG_20260715_140630.jpg",
     title: "1st Executive Committee Handover",
     date: "July 15, 2026",
     desc: "The 1st executive committee formally accepts their leadership roles.",
-  },
-  {
-    src: "/images/events/handover-IMG_20260715_141039.jpg",
-    title: "1st Executive Committee Handover",
-    date: "July 15, 2026",
-    desc: "A celebratory group photo concluding the handover meeting.",
+    category: "HANDOVER",
   },
 ];
 
@@ -427,11 +435,10 @@ export default function Home() {
                 <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${recruitmentBannerState === "open" ? "bg-emerald-500" : "bg-blue-500"}`}></span>
               </span>
 
-              <span className={`text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded border ${
-                recruitmentBannerState === "open"
+              <span className={`text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded border ${recruitmentBannerState === "open"
                   ? "bg-emerald-950/80 text-emerald-300 border-emerald-800/80"
                   : "bg-blue-950/80 text-blue-300 border-blue-800/80"
-              }`}>
+                }`}>
                 {recruitmentBannerState === "open" ? "Recruitment Ongoing" : "Member Recruitment 2026"}
               </span>
 
@@ -531,167 +538,120 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ PAST EVENTS & HIGHLIGHTS (Visual Studio YouTube Hub Style) ═══ */}
-      <section className="w-full py-12 md:py-16">
-        <div className="mx-auto max-w-7xl">
-          
-          {/* Section Header with View All Link */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-4 border-b border-slate-200/80 gap-3">
-            <div>
-              <span className="inline-flex items-center text-[10px] sm:text-[11px] font-extrabold uppercase tracking-widest text-blue-600 bg-blue-50 border border-blue-200/80 px-3 py-0.5 rounded-full mb-2 shadow-2xs">
-                Community Highlights
-              </span>
-              <h2 className="font-space-grotesk text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
-                Past Events &amp; Workshops
-              </h2>
-            </div>
+      {/* ═══ PAST EVENTS & HIGHLIGHTS (Visual Studio YouTube Hub 3D Coverflow Style) ═══ */}
+      <section className="w-full py-12 md:py-16 overflow-hidden flex flex-col items-center">
+        
+        {/* Header Title & Button (Matching Visual Studio Hub Screenshot) */}
+        <div className="mx-auto max-w-2xl text-center space-y-3">
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-space-grotesk text-slate-900">
+            Past Events &amp; Highlights
+          </h2>
+          <div>
             <Link
               href="/events"
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-blue-600 hover:text-blue-700 group transition-colors shrink-0"
+              className="inline-flex items-center gap-1.5 rounded-full bg-[#3b2e58] hover:bg-[#4d3c72] px-6 py-2 text-xs sm:text-sm font-bold text-white shadow-md transition-all hover:scale-105"
             >
-              <span>View All Past Events</span>
-              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              <span>Explore All Events</span>
             </Link>
           </div>
+        </div>
 
-          {/* 3-Column Card Grid (Visual Studio YouTube Hub Style) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {[
-              {
-                id: "e1",
-                title: "Statistics Week 2026",
-                category: "TOURNAMENT",
-                date: "April 2026",
-                duration: "Event Highlights",
-                image: "/images/events/statweek26.png",
-                desc: "Sports week tournament featuring live fixtures and boards for Chess, Carrom, Cricket, and Football events.",
-                link: "https://adittoahosankabbo.github.io/statweek",
-                isExternal: true,
-              },
-              {
-                id: "e2",
-                title: "AI & Data Science Career Insights and Python Mastery",
-                category: "CAREER WORKSHOP",
-                date: "May 20, 2025",
-                duration: "Full Session",
-                image: "/images/events/career-mastery-banner.jpg",
-                desc: "Career-focused guidance on AI & Data Science pathways with hands-on Python coding exercises.",
-                link: "/events",
-                isExternal: false,
-              },
-              {
-                id: "e3",
-                title: "PUST DSC Executive Orientation & Community Meet",
-                category: "ORIENTATION",
-                date: "January 2025",
-                duration: "Event Recap",
-                image: "/images/gallery/IMG_2803.JPG",
-                desc: "Welcome orientation bringing together faculty advisors, executives, and new club members.",
-                link: "/gallery",
-                isExternal: false,
-              },
-            ].map((event) => {
-              const CardWrapper = event.isExternal ? "a" : Link;
-              const linkProps = event.isExternal
-                ? { href: event.link, target: "_blank", rel: "noopener noreferrer" }
-                : { href: event.link };
+        {/* 3D Coverflow Carousel Container */}
+        <div className="relative w-full max-w-6xl mt-10 min-h-[260px] sm:min-h-[380px] md:min-h-[440px] flex items-center justify-center px-4">
+          
+          {/* Left Arrow Navigation */}
+          <button
+            onClick={handlePrev}
+            className="absolute left-2 sm:left-6 lg:left-12 z-30 p-2.5 sm:p-3 rounded-full bg-white/95 hover:bg-white text-slate-800 shadow-lg border border-slate-200 transition-all hover:scale-110"
+            aria-label="Previous event"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+          </button>
+
+          {/* 3D Cards Frame */}
+          <div className="relative w-full max-w-4xl h-[240px] sm:h-[340px] md:h-[400px] flex items-center justify-center">
+            {gallerySlides.map((slide, i) => {
+              const isCenter = slideIndex === i;
+              const isLeft = (slideIndex - 1 + gallerySlides.length) % gallerySlides.length === i;
+              const isRight = (slideIndex + 1) % gallerySlides.length === i;
+
+              if (!isCenter && !isLeft && !isRight) return null;
 
               return (
-                <CardWrapper
-                  key={event.id}
-                  {...linkProps}
-                  className="group flex flex-col bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-2xs hover:shadow-lg hover:border-blue-200 transition-all duration-300"
+                <div
+                  key={i}
+                  onClick={() => {
+                    if (!isCenter) {
+                      setSlideIndex(i);
+                      setIsPlaying(false);
+                    }
+                  }}
+                  className={`absolute top-0 bottom-0 aspect-[16/9] transition-all duration-500 ease-out rounded-2xl overflow-hidden cursor-pointer ${
+                    isCenter
+                      ? "z-20 scale-100 opacity-100 shadow-2xl border-2 border-white/80 translate-x-0"
+                      : isLeft
+                      ? "z-10 scale-[0.82] sm:scale-85 opacity-70 border border-slate-200 -translate-x-[35%] sm:-translate-x-[45%] md:-translate-x-[55%]"
+                      : "z-10 scale-[0.82] sm:scale-85 opacity-70 border border-slate-200 translate-x-[35%] sm:translate-x-[45%] md:translate-x-[55%]"
+                  }`}
                 >
-                  {/* Thumbnail Container (16:9 Aspect Ratio with Red YouTube/Play Overlay) */}
-                  <div className="relative aspect-[16/9] bg-slate-900 overflow-hidden">
-                    <Image
-                      src={event.image}
-                      alt={event.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <Image
+                    src={slide.src}
+                    alt={slide.title}
+                    fill
+                    className="object-cover"
+                    priority={isCenter}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
 
-                    {/* Top Category Badge */}
-                    <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-md text-slate-800 text-[10px] font-extrabold px-2.5 py-1 rounded-md uppercase tracking-wider shadow-2xs">
-                      {event.category}
+                  {/* Category Pill Tag */}
+                  {slide.category && (
+                    <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-md text-slate-900 text-[10px] font-black px-2.5 py-1 rounded-md uppercase tracking-widest shadow-2xs">
+                      {slide.category}
                     </span>
+                  )}
 
-                    {/* Bottom Duration Badge */}
-                    <span className="absolute bottom-3 right-3 bg-black/75 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-0.5 rounded text-xs tracking-tight border border-white/10">
-                      {event.duration}
-                    </span>
-
-                    {/* Center YouTube Play Button Overlay */}
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <div className="w-11 h-11 rounded-full bg-red-600 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform group-hover:bg-red-700">
-                        <svg className="w-5 h-5 ml-0.5 fill-current" viewBox="0 0 24 24">
-                          <path d="M8 5v14l11-7z" />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Card Content */}
-                  <div className="p-5 flex flex-col flex-1 justify-between space-y-3">
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-2 text-[11px] font-semibold text-slate-500">
-                        <Calendar className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-                        <span>{event.date}</span>
-                      </div>
-
-                      <h3 className="font-space-grotesk text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
-                        {event.title}
-                      </h3>
-
-                      <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed font-normal">
-                        {event.desc}
-                      </p>
-                    </div>
-
-                    {/* Footer Watch Link */}
-                    <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-blue-600 group-hover:text-blue-700">
-                      <span>{event.isExternal ? "Visit Event Page" : "View Highlights"}</span>
-                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  {/* Center Translucent Play Icon Overlay (Matching Visual Studio Hub Screenshot) */}
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-black/50 border border-white/30 backdrop-blur-md text-white flex items-center justify-center shadow-xl">
+                      <svg className="w-6 h-6 ml-0.5 fill-current" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
                       </svg>
                     </div>
                   </div>
-                </CardWrapper>
+
+                  {/* Bottom Text Overlay */}
+                  <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-5 text-white text-left z-10">
+                    <span className="text-[10px] sm:text-xs font-bold text-blue-300 uppercase tracking-wider block mb-1">
+                      {slide.date}
+                    </span>
+                    <h3 className="font-space-grotesk text-sm sm:text-lg md:text-xl font-extrabold line-clamp-1 leading-snug">
+                      {slide.title}
+                    </h3>
+                  </div>
+                </div>
               );
             })}
           </div>
 
+          {/* Right Arrow Navigation */}
+          <button
+            onClick={handleNext}
+            className="absolute right-2 sm:right-6 lg:right-12 z-30 p-2.5 sm:p-3 rounded-full bg-white/95 hover:bg-white text-slate-800 shadow-lg border border-slate-200 transition-all hover:scale-110"
+            aria-label="Next event"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
         </div>
-      </section>
 
-      {/* ═══ GALLERY SLIDESHOW ═══ */}
-      <section className="w-full py-4 flex flex-col items-center">
-        <div className="mx-auto mb-10 max-w-2xl text-center">
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-space-grotesk text-blue-600">
-            Our Journey
-          </h2>
-          <p className="mt-4 text-slate-500 font-medium">A glimpse of the moments shaping our club’s journey.</p>
-        </div>
-
-        {/* Slide Frame */}
-        <div className="relative w-[calc(100%+32px)] md:w-full -mx-[16px] md:mx-0 max-w-4xl aspect-[16/9] bg-[#090d16] rounded-none md:rounded-2xl overflow-hidden shadow-2xl border-y border-slate-800 md:border">
-          <div className="relative w-full h-full">
-            <Image
-              src={gallerySlides[slideIndex].src}
-              alt={gallerySlides[slideIndex].title}
-              fill
-              className="object-cover transition-opacity duration-500"
-              priority
-            />
-            {/* Stronger gradient so caption text is always readable */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-          </div>
-
-          {/* Top-Right Play/Pause */}
+        {/* Center Play/Pause Toggle Button (Matching Visual Studio Hub || / ▶ button) */}
+        <div className="mt-6 flex flex-col items-center gap-3">
           <button
             onClick={() => setIsPlaying(!isPlaying)}
-            className="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-black/50 hover:bg-black/75 text-white backdrop-blur-sm transition-colors border border-white/10"
+            className="w-10 h-10 rounded-xl bg-[#2b2738] hover:bg-[#3b354d] text-white flex items-center justify-center shadow-md transition-colors border border-white/10"
             aria-label={isPlaying ? "Pause slideshow" : "Start slideshow"}
           >
             {isPlaying ? (
@@ -699,96 +659,30 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
               </svg>
             ) : (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
               </svg>
             )}
           </button>
 
-          {/* Left Navigation */}
-          <button
-            onClick={handlePrev}
-            className="absolute left-2.5 md:left-4 top-1/2 -translate-y-1/2 z-20 p-1.5 md:p-2.5 rounded-full bg-black/50 hover:bg-black/75 text-white backdrop-blur-sm transition-colors border border-white/10"
-            aria-label="Previous image"
-          >
-            <svg className="w-4 h-4 md:w-6 md:h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-            </svg>
-          </button>
-
-          {/* Right Navigation */}
-          <button
-            onClick={handleNext}
-            className="absolute right-2.5 md:right-4 top-1/2 -translate-y-1/2 z-20 p-1.5 md:p-2.5 rounded-full bg-black/50 hover:bg-black/75 text-white backdrop-blur-sm transition-colors border border-white/10"
-            aria-label="Next image"
-          >
-            <svg className="w-4 h-4 md:w-6 md:h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-            </svg>
-          </button>
-
-          {/* Bottom Caption Overlay */}
-          <div className="absolute bottom-0 left-0 right-0 px-4 py-4 sm:px-6 sm:py-5 md:px-8 md:py-6 text-white z-10 select-none text-left">
-            <span className="mb-1.5 inline-flex items-center rounded bg-blue-600/30 border border-blue-500/20 px-2 py-0.5 text-[10px] sm:text-xs font-bold text-blue-300">
-              {gallerySlides[slideIndex].date}
-            </span>
-            <h3 className="text-base sm:text-xl md:text-2xl font-extrabold mb-1 tracking-tight font-space-grotesk leading-snug">
-              {gallerySlides[slideIndex].title}
-            </h3>
-          </div>
-        </div>
-
-        {/* Thumbnail Preview Strip */}
-        <div className="mt-6 w-full max-w-4xl px-2">
-          <div className="grid grid-cols-6 gap-2.5 md:gap-3.5">
-            {gallerySlides.map((item, i) => (
+          {/* Dot Indicators */}
+          <div className="flex gap-2">
+            {gallerySlides.map((_, i) => (
               <button
                 key={i}
                 onClick={() => {
                   setSlideIndex(i);
                   setIsPlaying(false);
                 }}
-                className={`relative aspect-[16/9] rounded-lg overflow-hidden border-2 bg-slate-200 transition-all ${slideIndex === i
-                  ? "border-blue-600 ring-2 ring-blue-600/35 scale-[1.03]"
-                  : "border-transparent opacity-65 hover:opacity-100"
-                  }`}
-              >
-                <Image
-                  src={item.src}
-                  alt={item.title}
-                  fill
-                  className="object-cover"
-                />
-              </button>
+                className={`h-2 rounded-full transition-all ${
+                  slideIndex === i ? "w-6 bg-blue-600" : "w-2 bg-slate-300 hover:bg-slate-400"
+                }`}
+                aria-label={`Go to slide ${i + 1}`}
+              />
             ))}
           </div>
         </div>
 
-        {/* Sliding Dot Indicators */}
-        <div className="mt-5 flex gap-2">
-          {gallerySlides.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => {
-                setSlideIndex(i);
-                setIsPlaying(false);
-              }}
-              className={`h-2.5 rounded-full transition-all ${slideIndex === i ? "w-7 bg-blue-600" : "w-2.5 bg-slate-300 hover:bg-slate-400"
-                }`}
-              aria-label={`Go to slide ${i + 1}`}
-            />
-          ))}
-        </div>
-
-        <div className="mt-8 flex justify-center">
-          <Link
-            href="/gallery"
-            className="inline-flex h-11 items-center justify-center rounded-xl bg-blue-600 bg-gradient-to-r from-blue-600 to-indigo-600 px-8 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-500/30"
-          >
-            View Full Gallery
-            <svg className="ml-2 h-4 w-4 animate-pulse" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-7-7 7 7-7 7" /></svg>
-          </Link>
-        </div>
       </section>
 
       {/* ═══ WHY JOIN ═══ */}
