@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { siteData } from "@/data/data";
-import { BrainCircuit, FlaskConical, Network, Search, Database, FileText, Cpu, ExternalLink, Sparkles, Globe, Eye, Mic, Bot, Gamepad2, Smartphone, ArrowUpRight, Layers, Gift, GraduationCap, Award, CheckCircle2 } from "lucide-react";
+import { BrainCircuit, FlaskConical, Network, Search, Database, FileText, Cpu, ExternalLink, Sparkles, Globe, Eye, Mic, Bot, Gamepad2, Smartphone, ArrowUpRight, Layers, Gift, GraduationCap, Award, CheckCircle2, Calendar } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const gallerySlides = [
@@ -526,6 +526,140 @@ export default function Home() {
             <p className="text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed font-normal">
               PUST Data Science Club has officially partnered with <strong className="text-slate-900 font-semibold">DataCamp Donates</strong> to provide all registered members with 1 year of free DataCamp Premium access.
             </p>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ═══ PAST EVENTS & HIGHLIGHTS (Visual Studio YouTube Hub Style) ═══ */}
+      <section className="w-full py-12 md:py-16">
+        <div className="mx-auto max-w-7xl">
+          
+          {/* Section Header with View All Link */}
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-4 border-b border-slate-200/80 gap-3">
+            <div>
+              <span className="inline-flex items-center text-[10px] sm:text-[11px] font-extrabold uppercase tracking-widest text-blue-600 bg-blue-50 border border-blue-200/80 px-3 py-0.5 rounded-full mb-2 shadow-2xs">
+                Community Highlights
+              </span>
+              <h2 className="font-space-grotesk text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+                Past Events &amp; Workshops
+              </h2>
+            </div>
+            <Link
+              href="/events"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-blue-600 hover:text-blue-700 group transition-colors shrink-0"
+            >
+              <span>View All Past Events</span>
+              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </Link>
+          </div>
+
+          {/* 3-Column Card Grid (Visual Studio YouTube Hub Style) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {[
+              {
+                id: "e1",
+                title: "Statistics Week 2026",
+                category: "TOURNAMENT",
+                date: "April 2026",
+                duration: "Event Highlights",
+                image: "/images/events/statweek26.png",
+                desc: "Sports week tournament featuring live fixtures and boards for Chess, Carrom, Cricket, and Football events.",
+                link: "https://adittoahosankabbo.github.io/statweek",
+                isExternal: true,
+              },
+              {
+                id: "e2",
+                title: "AI & Data Science Career Insights and Python Mastery",
+                category: "CAREER WORKSHOP",
+                date: "May 20, 2025",
+                duration: "Full Session",
+                image: "/images/events/career-mastery-banner.jpg",
+                desc: "Career-focused guidance on AI & Data Science pathways with hands-on Python coding exercises.",
+                link: "/events",
+                isExternal: false,
+              },
+              {
+                id: "e3",
+                title: "PUST DSC Executive Orientation & Community Meet",
+                category: "ORIENTATION",
+                date: "January 2025",
+                duration: "Event Recap",
+                image: "/images/gallery/IMG_2803.JPG",
+                desc: "Welcome orientation bringing together faculty advisors, executives, and new club members.",
+                link: "/gallery",
+                isExternal: false,
+              },
+            ].map((event) => {
+              const CardWrapper = event.isExternal ? "a" : Link;
+              const linkProps = event.isExternal
+                ? { href: event.link, target: "_blank", rel: "noopener noreferrer" }
+                : { href: event.link };
+
+              return (
+                <CardWrapper
+                  key={event.id}
+                  {...linkProps}
+                  className="group flex flex-col bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-2xs hover:shadow-lg hover:border-blue-200 transition-all duration-300"
+                >
+                  {/* Thumbnail Container (16:9 Aspect Ratio with Red YouTube/Play Overlay) */}
+                  <div className="relative aspect-[16/9] bg-slate-900 overflow-hidden">
+                    <Image
+                      src={event.image}
+                      alt={event.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+                    {/* Top Category Badge */}
+                    <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-md text-slate-800 text-[10px] font-extrabold px-2.5 py-1 rounded-md uppercase tracking-wider shadow-2xs">
+                      {event.category}
+                    </span>
+
+                    {/* Bottom Duration Badge */}
+                    <span className="absolute bottom-3 right-3 bg-black/75 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-0.5 rounded text-xs tracking-tight border border-white/10">
+                      {event.duration}
+                    </span>
+
+                    {/* Center YouTube Play Button Overlay */}
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <div className="w-11 h-11 rounded-full bg-red-600 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform group-hover:bg-red-700">
+                        <svg className="w-5 h-5 ml-0.5 fill-current" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Card Content */}
+                  <div className="p-5 flex flex-col flex-1 justify-between space-y-3">
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2 text-[11px] font-semibold text-slate-500">
+                        <Calendar className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                        <span>{event.date}</span>
+                      </div>
+
+                      <h3 className="font-space-grotesk text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
+                        {event.title}
+                      </h3>
+
+                      <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed font-normal">
+                        {event.desc}
+                      </p>
+                    </div>
+
+                    {/* Footer Watch Link */}
+                    <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-blue-600 group-hover:text-blue-700">
+                      <span>{event.isExternal ? "Visit Event Page" : "View Highlights"}</span>
+                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                      </svg>
+                    </div>
+                  </div>
+                </CardWrapper>
+              );
+            })}
           </div>
 
         </div>
