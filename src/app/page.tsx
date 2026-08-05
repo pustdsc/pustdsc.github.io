@@ -685,6 +685,135 @@ export default function Home() {
 
       </section>
 
+      {/* ═══ OUR JOURNEY GALLERY SLIDESHOW ═══ */}
+      <section className="w-full py-12 md:py-16 flex flex-col items-center border-t border-slate-100">
+        <div className="mx-auto mb-10 max-w-2xl text-center">
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-space-grotesk text-blue-600">
+            Our Journey
+          </h2>
+          <p className="mt-4 text-slate-500 font-medium">A glimpse of the moments shaping our club’s journey.</p>
+        </div>
+
+        {/* Slide Frame */}
+        <div className="relative w-[calc(100%+32px)] md:w-full -mx-[16px] md:mx-0 max-w-4xl aspect-[16/9] bg-[#090d16] rounded-none md:rounded-2xl overflow-hidden shadow-2xl border-y border-slate-800 md:border">
+          <div className="relative w-full h-full">
+            <Image
+              src={gallerySlides[slideIndex].src}
+              alt={gallerySlides[slideIndex].title}
+              fill
+              className="object-cover transition-opacity duration-500"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+          </div>
+
+          {/* Top-Right Play/Pause */}
+          <button
+            onClick={() => setIsPlaying(!isPlaying)}
+            className="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-black/50 hover:bg-black/75 text-white backdrop-blur-sm transition-colors border border-white/10"
+            aria-label={isPlaying ? "Pause slideshow" : "Start slideshow"}
+          >
+            {isPlaying ? (
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
+              </svg>
+            ) : (
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            )}
+          </button>
+
+          {/* Left Navigation */}
+          <button
+            onClick={handlePrev}
+            className="absolute left-2.5 md:left-4 top-1/2 -translate-y-1/2 z-20 p-1.5 md:p-2.5 rounded-full bg-black/50 hover:bg-black/75 text-white backdrop-blur-sm transition-colors border border-white/10"
+            aria-label="Previous image"
+          >
+            <svg className="w-4 h-4 md:w-6 md:h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+          </button>
+
+          {/* Right Navigation */}
+          <button
+            onClick={handleNext}
+            className="absolute right-2.5 md:left-4 top-1/2 -translate-y-1/2 z-20 p-1.5 md:p-2.5 rounded-full bg-black/50 hover:bg-black/75 text-white backdrop-blur-sm transition-colors border border-white/10"
+            aria-label="Next image"
+          >
+            <svg className="w-4 h-4 md:w-6 md:h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+
+          {/* Bottom Caption Overlay */}
+          <div className="absolute bottom-0 left-0 right-0 px-4 py-4 sm:px-6 sm:py-5 md:px-8 md:py-6 text-white z-10 select-none text-left">
+            <span className="mb-1.5 inline-flex items-center rounded bg-blue-600/30 border border-blue-500/20 px-2 py-0.5 text-[10px] sm:text-xs font-bold text-blue-300">
+              {gallerySlides[slideIndex].date}
+            </span>
+            <h3 className="text-base sm:text-xl md:text-2xl font-extrabold mb-1 tracking-tight font-space-grotesk leading-snug">
+              {gallerySlides[slideIndex].title}
+            </h3>
+          </div>
+        </div>
+
+        {/* Thumbnail Preview Strip */}
+        <div className="mt-6 w-full max-w-4xl px-2">
+          <div className="grid grid-cols-6 gap-2.5 md:gap-3.5">
+            {gallerySlides.map((item, i) => (
+              <button
+                key={i}
+                onClick={() => {
+                  setSlideIndex(i);
+                  setIsPlaying(false);
+                }}
+                className={`relative aspect-[16/9] rounded-lg overflow-hidden border-2 bg-slate-200 transition-all ${
+                  slideIndex === i
+                    ? "border-blue-600 ring-2 ring-blue-600/35 scale-[1.03]"
+                    : "border-transparent opacity-65 hover:opacity-100"
+                }`}
+              >
+                <Image
+                  src={item.src}
+                  alt={item.title}
+                  fill
+                  className="object-cover"
+                />
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Sliding Dot Indicators */}
+        <div className="mt-5 flex gap-2">
+          {gallerySlides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => {
+                setSlideIndex(i);
+                setIsPlaying(false);
+              }}
+              className={`h-2.5 rounded-full transition-all ${
+                slideIndex === i ? "w-7 bg-blue-600" : "w-2.5 bg-slate-300 hover:bg-slate-400"
+              }`}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
+        </div>
+
+        <div className="mt-8 flex justify-center">
+          <Link
+            href="/gallery"
+            className="inline-flex h-11 items-center justify-center rounded-xl bg-blue-600 bg-gradient-to-r from-blue-600 to-indigo-600 px-8 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-500/30"
+          >
+            View Full Gallery
+            <svg className="ml-2 h-4 w-4 animate-pulse" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-7-7 7 7-7 7" />
+            </svg>
+          </Link>
+        </div>
+      </section>
+
       {/* ═══ WHY JOIN ═══ */}
       <section className="w-auto -mx-[16px] md:mx-0 md:w-full rounded-none md:rounded-2xl bg-gradient-to-b from-slate-50 to-white border-y md:border border-slate-100/80 px-4 py-16 md:p-12 md:py-20">
         <div className="mx-auto mb-12 max-w-2xl text-center">
