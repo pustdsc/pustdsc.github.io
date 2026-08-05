@@ -64,10 +64,34 @@ const skillShowcase = [
 
 const pastEvents = [
   {
+    title: "Member Recruitment 2026 (Extended)",
+    date: "August 3–8, 2026",
+    status: "Recruitment Open",
+    statusBg: "bg-blue-600",
+    image: "/images/recruitment banner.png",
+    desc: "Join PUST Data Science Club! All registered members receive 1 year of free DataCamp Premium access ($300+ value), workshops, and project mentorship.",
+    link: "/membership",
+    isExternal: false,
+  },
+  {
     title: "AI & Data Science Career Insights and Python Mastery",
     date: "May 20, 2025",
+    status: "Ended",
+    statusBg: "bg-slate-700",
     image: "/images/events/career-mastery-banner.jpg",
     desc: "A career-focused session on AI and data science pathways with hands-on Python mastery for practical data work.",
+    link: "/events",
+    isExternal: false,
+  },
+  {
+    title: "Statistics Week 2026",
+    date: "April 2026",
+    status: "Ended",
+    statusBg: "bg-slate-700",
+    image: "/images/events/statweek26.png",
+    desc: "An engaging sports week tournament featuring live fixtures, brackets, and interactive boards for Chess, Carrom, Ludu, Cricket, and Football events.",
+    link: "https://adittoahosankabbo.github.io/statweek",
+    isExternal: true,
   },
 ];
 
@@ -709,34 +733,53 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid w-full max-w-4xl gap-6 md:grid-cols-2 px-2">
-          {pastEvents.map((event) => (
-            <article key={event.title} className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-lg flex flex-col">
-              <div className="relative aspect-[16/9] overflow-hidden bg-slate-100">
-                <Image
-                  src={event.image}
-                  alt={event.title}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                <span className="absolute left-4 top-4 rounded-md bg-blue-600 px-3 py-1 text-xs font-bold text-white shadow-2xs">
-                  Ended
-                </span>
-                <span className="absolute bottom-4 left-4 rounded-md bg-white/95 px-3 py-1 text-xs font-bold text-blue-600 backdrop-blur-sm shadow-2xs">
-                  {event.date}
-                </span>
-              </div>
-              <div className="p-6 flex flex-col flex-1 justify-between">
+        <div className="grid w-full max-w-5xl gap-6 md:grid-cols-3 px-2">
+          {pastEvents.map((event) => {
+            const CardWrapper = event.isExternal ? "a" : Link;
+            const linkProps = event.isExternal
+              ? { href: event.link, target: "_blank", rel: "noopener noreferrer" }
+              : { href: event.link };
+
+            return (
+              <CardWrapper
+                key={event.title}
+                {...linkProps}
+                className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xs transition-all hover:-translate-y-0.5 hover:shadow-lg hover:border-blue-200 flex flex-col justify-between"
+              >
                 <div>
-                  <h3 className="font-space-grotesk text-xl font-bold leading-snug text-slate-900 transition-colors group-hover:text-blue-600">
-                    {event.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-500 font-normal">{event.desc}</p>
+                  <div className="relative aspect-[16/9] overflow-hidden bg-slate-100">
+                    <Image
+                      src={event.image}
+                      alt={event.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                    <span className={`absolute left-3 top-3 rounded-md ${event.statusBg} px-2.5 py-1 text-[11px] font-bold text-white shadow-2xs`}>
+                      {event.status}
+                    </span>
+                    <span className="absolute bottom-3 left-3 rounded-md bg-white/95 px-2.5 py-1 text-[11px] font-bold text-blue-600 backdrop-blur-sm shadow-2xs">
+                      {event.date}
+                    </span>
+                  </div>
+                  <div className="p-5">
+                    <h3 className="font-space-grotesk text-base sm:text-lg font-bold leading-snug text-slate-900 transition-colors group-hover:text-blue-600 line-clamp-2">
+                      {event.title}
+                    </h3>
+                    <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-slate-600 font-normal line-clamp-3">
+                      {event.desc}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))}
+                <div className="px-5 pb-4 pt-0 text-xs font-bold text-blue-600 group-hover:text-blue-700 flex items-center gap-1">
+                  <span>{event.title.includes("Recruitment") ? "Apply Now" : "View Details"}</span>
+                  <svg className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </div>
+              </CardWrapper>
+            );
+          })}
         </div>
       </section>
 
