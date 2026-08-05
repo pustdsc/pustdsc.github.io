@@ -1,4 +1,9 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 
 const pastEvents = [
   {
@@ -17,6 +22,45 @@ const pastEvents = [
 ];
 
 export default function Events() {
+  const [recruitmentState, setRecruitmentState] = useState<"upcoming" | "open" | "ended">("upcoming");
+  const [timeLeft, setTimeLeft] = useState<{ days: number; hours: number; minutes: number; seconds: number } | null>(null);
+
+  useEffect(() => {
+    const calculate = () => {
+      const startDate = new Date("2026-08-02T22:00:00+06:00").getTime();
+      const endDate = new Date("2026-08-08T23:59:59+06:00").getTime();
+      const now = new Date().getTime();
+
+      if (now > endDate) {
+        setRecruitmentState("ended");
+        setTimeLeft(null);
+        return;
+      }
+      if (now >= startDate && now <= endDate) {
+        const diff = endDate - now;
+        setRecruitmentState("open");
+        setTimeLeft({
+          days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((diff / (1000 * 60)) % 60),
+          seconds: Math.floor((diff / 1000) % 60),
+        });
+      } else {
+        const diff = startDate - now;
+        setRecruitmentState("upcoming");
+        setTimeLeft({
+          days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((diff / (1000 * 60)) % 60),
+          seconds: Math.floor((diff / 1000) % 60),
+        });
+      }
+    };
+    calculate();
+    const interval = setInterval(calculate, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="flex min-h-screen flex-col">
       <section className="w-full py-12 md:py-16">
@@ -30,9 +74,10 @@ export default function Events() {
         </div>
       </section>
 
+      {/* ═══ UPCOMING / RECRUITMENT ═══ */}
       <section className="w-full rounded-2xl border border-blue-100 bg-gradient-to-b from-blue-50/70 via-white to-white px-5 py-12 md:px-8 md:py-14">
-        <div className="mx-auto grid max-w-5xl items-center gap-8 md:grid-cols-[0.8fr_1.2fr]">
-          <div>
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-8">
             <span className="inline-flex rounded-md bg-white px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-blue-600 shadow-sm">
               Next Chapter
             </span>
@@ -44,10 +89,64 @@ export default function Events() {
             </p>
           </div>
 
-          <div className="relative overflow-hidden rounded-2xl border border-dashed border-blue-200 bg-white p-6 shadow-sm">
-            <div className="absolute right-0 top-0 h-24 w-24 rounded-bl-full bg-blue-50" />
-            <div className="relative">
-              <div>
+          {/* Recruitment Card */}
+          {recruitmentState !== "ended" && timeLeft ? (
+            <article className="group grid overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-lg md:grid-cols-[1.1fr_0.9fr]">
+              <div className="relative min-h-[260px] overflow-hidden bg-slate-100">
+                <Image
+                  src="/images/recruitment banner.png"
+                  alt="PUST DSC Member Recruitment 2026"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+                <span className={`absolute left-4 top-4 rounded-md px-3 py-1 text-xs font-bold text-white ${recruitmentState === "open" ? "bg-emerald-600" : "bg-blue-600"}`}>
+                  {recruitmentState === "open" ? "Ongoing" : "Upcoming"}
+                </span>
+              </div>
+
+              <div className="flex flex-col justify-center p-6 md:p-8">
+                <span className="mb-4 inline-flex w-fit rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-600">
+                  3–8 August, 2026
+                </span>
+                <h3 className="font-space-grotesk text-2xl font-extrabold leading-tight text-slate-900 transition-colors group-hover:text-blue-600">
+                  Member Recruitment 2026
+                </h3>
+                <p className="mt-4 text-sm leading-relaxed text-slate-500">
+                  {recruitmentState === "open"
+                    ? "Registration is LIVE! Join PUST Data Science Club — apply before 8 August 2026."
+                    : "Official member registration opens 3–8 August 2026. Get ready to join PUST DSC!"}
+                </p>
+
+                {/* Countdown */}
+                <div className="mt-4 flex items-center gap-1.5 font-mono text-[11px] font-bold text-slate-700">
+                  <span className="text-[10px] text-slate-400 font-sans uppercase font-bold mr-0.5">
+                    {recruitmentState === "open" ? "Closes in:" : "Starts in:"}
+                  </span>
+                  <span className="bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-center">{String(timeLeft.days).padStart(2, "0")}d</span>
+                  <span className="text-slate-300">:</span>
+                  <span className="bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-center">{String(timeLeft.hours).padStart(2, "0")}h</span>
+                  <span className="text-slate-300">:</span>
+                  <span className="bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-center">{String(timeLeft.minutes).padStart(2, "0")}m</span>
+                  <span className="text-slate-300">:</span>
+                  <span className="bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded text-blue-600 text-center">{String(timeLeft.seconds).padStart(2, "0")}s</span>
+                </div>
+
+                <div className="mt-5">
+                  <Link
+                    href="/membership#recruitment-form"
+                    className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm transition-all active:scale-95 shadow-sm"
+                  >
+                    <span>{recruitmentState === "open" ? "Apply Now" : "Register"}</span>
+                    <ArrowUpRight className="h-4 w-4" />
+                  </Link>
+                </div>
+              </div>
+            </article>
+          ) : (
+            <div className="relative overflow-hidden rounded-2xl border border-dashed border-blue-200 bg-white p-6 shadow-sm">
+              <div className="absolute right-0 top-0 h-24 w-24 rounded-bl-full bg-blue-50" />
+              <div className="relative">
                 <span className="inline-flex rounded-full bg-blue-600 px-4 py-1.5 text-sm font-bold text-white">
                   Coming Soon
                 </span>
@@ -56,10 +155,11 @@ export default function Events() {
                 </p>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 
+      {/* ═══ PAST EVENTS ═══ */}
       <section className="w-full py-12 md:py-16">
         <div className="mx-auto mb-10 max-w-2xl text-center">
           <h2 className="font-space-grotesk text-3xl font-extrabold tracking-tight text-blue-600">

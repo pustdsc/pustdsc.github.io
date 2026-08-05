@@ -64,24 +64,10 @@ const skillShowcase = [
 
 const pastEvents = [
   {
-    title: "Member Recruitment 2026 (Extended)",
-    date: "August 3–8, 2026",
-    status: "Recruitment Open",
-    statusBg: "bg-blue-600",
-    image: "/images/recruitment banner.png",
-    desc: "Join PUST Data Science Club! All registered members receive 1 year of free DataCamp Premium access ($300+ value), workshops, and project mentorship.",
-    link: "/membership",
-    isExternal: false,
-  },
-  {
     title: "AI & Data Science Career Insights and Python Mastery",
     date: "May 20, 2025",
-    status: "Ended",
-    statusBg: "bg-slate-700",
     image: "/images/events/career-mastery-banner.jpg",
     desc: "A career-focused session on AI and data science pathways with hands-on Python mastery for practical data work.",
-    link: "/events",
-    isExternal: false,
   },
 ];
 
@@ -273,6 +259,8 @@ export default function Home() {
   const [isPlaying, setIsPlaying] = useState(true);
   const [activeTab, setActiveTab] = useState<"datasets" | "papers" | "learning" | "tools">("tools");
   const [searchQuery, setSearchQuery] = useState("");
+  const [eventSlideIndex, setEventSlideIndex] = useState(0);
+  const [isEventPlaying, setIsEventPlaying] = useState(true);
 
   const groupedPapers = resourceHub.papers
     .filter(r =>
@@ -306,6 +294,15 @@ export default function Home() {
     }, 5000);
     return () => clearInterval(interval);
   }, [isPlaying]);
+
+  // Event carousel auto-play
+  useEffect(() => {
+    if (!isEventPlaying) return;
+    const interval = setInterval(() => {
+      setEventSlideIndex((prev) => (prev + 1));
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [isEventPlaying]);
 
   const handlePrev = () => {
     setSlideIndex((prev) => (prev - 1 + gallerySlides.length) % gallerySlides.length);
@@ -712,67 +709,6 @@ export default function Home() {
       </section>
 
 
-      {/* ═══ PAST EVENTS ═══ */}
-      <section className="w-full py-12 md:py-16 flex flex-col items-center">
-        <div className="mx-auto mb-10 max-w-2xl text-center">
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-space-grotesk text-blue-600">
-            Past Events
-          </h2>
-          <p className="mt-4 text-slate-500 font-medium">
-            A look back at the sessions and activities that shaped our learning community.
-          </p>
-        </div>
-
-        <div className="grid w-full max-w-4xl gap-6 md:grid-cols-2 px-2">
-          {pastEvents.map((event) => {
-            const CardWrapper = event.isExternal ? "a" : Link;
-            const linkProps = event.isExternal
-              ? { href: event.link, target: "_blank", rel: "noopener noreferrer" }
-              : { href: event.link };
-
-            return (
-              <CardWrapper
-                key={event.title}
-                {...linkProps}
-                className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xs transition-all hover:-translate-y-0.5 hover:shadow-lg hover:border-blue-200 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="relative aspect-[16/9] overflow-hidden bg-slate-100">
-                    <Image
-                      src={event.image}
-                      alt={event.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                    <span className={`absolute left-3 top-3 rounded-md ${event.statusBg} px-2.5 py-1 text-[11px] font-bold text-white shadow-2xs`}>
-                      {event.status}
-                    </span>
-                    <span className="absolute bottom-3 left-3 rounded-md bg-white/95 px-2.5 py-1 text-[11px] font-bold text-blue-600 backdrop-blur-sm shadow-2xs">
-                      {event.date}
-                    </span>
-                  </div>
-                  <div className="p-5">
-                    <h3 className="font-space-grotesk text-base sm:text-lg font-bold leading-snug text-slate-900 transition-colors group-hover:text-blue-600 line-clamp-2">
-                      {event.title}
-                    </h3>
-                    <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-slate-600 font-normal line-clamp-3">
-                      {event.desc}
-                    </p>
-                  </div>
-                </div>
-                <div className="px-5 pb-4 pt-0 text-xs font-bold text-blue-600 group-hover:text-blue-700 flex items-center gap-1">
-                  <span>{event.title.includes("Recruitment") ? "Apply Now" : "View Details"}</span>
-                  <svg className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                  </svg>
-                </div>
-              </CardWrapper>
-            );
-          })}
-        </div>
-      </section>
-
       {/* ═══ SKILLS SHOWCASE ═══ */}
       <section className="w-auto -mx-[16px] md:mx-0 md:w-full py-16 md:py-20 overflow-hidden bg-gradient-to-b from-white via-blue-50/30 to-white">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(37,99,235,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(37,99,235,0.06)_1px,transparent_1px)] bg-[size:48px_48px]" />
@@ -1005,45 +941,211 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ CTA ═══ */}
-      <section className="w-full py-4 flex flex-col items-center">
-        <div className="mx-auto mb-10 max-w-2xl text-center">
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-space-grotesk text-blue-600">
-            Past Events
-          </h2>
-          <p className="mt-4 text-slate-500 font-medium">
-            A look back at the sessions and activities that shaped our learning community.
-          </p>
-        </div>
+      {/* ═══ EVENTS CAROUSEL (VS Hub Style) ═══ */}
+      {(() => {
+        const allEventCards = [
+          ...(recruitmentBannerState !== "ended" && bannerTimeLeft
+            ? [{
+              type: "recruitment" as const,
+              title: "Member Recruitment 2026",
+              date: "3–8 August, 2026",
+              image: "/images/recruitment banner.png",
+              desc: recruitmentBannerState === "open"
+                ? "Registration is LIVE! Join PUST Data Science Club — apply before 8 August 2026."
+                : "Official member registration opens 3–8 August 2026. Get ready to join PUST DSC!",
+              badge: recruitmentBannerState === "open" ? "Ongoing" : "Upcoming",
+              badgeColor: recruitmentBannerState === "open" ? "bg-emerald-600" : "bg-blue-600",
+            }]
+            : []),
+          ...pastEvents.map(e => ({
+            type: "past" as const,
+            title: e.title,
+            date: e.date,
+            image: e.image,
+            desc: e.desc,
+            badge: "Ended",
+            badgeColor: "bg-blue-600",
+          })),
+        ];
+        const totalEvents = allEventCards.length;
+        const safeEventIndex = eventSlideIndex % totalEvents;
 
-        <div className="grid w-full max-w-4xl gap-6 md:grid-cols-2">
-          {pastEvents.map((event) => (
-            <article key={event.title} className="group overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-lg">
-              <div className="relative aspect-[16/9] overflow-hidden bg-slate-100">
-                <Image
-                  src={event.image}
-                  alt={event.title}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                <span className="absolute left-4 top-4 rounded-md bg-blue-600 px-3 py-1 text-xs font-bold text-white">
-                  Ended
-                </span>
-                <span className="absolute bottom-4 left-4 rounded-md bg-white/90 px-3 py-1 text-xs font-bold text-blue-600 backdrop-blur-sm">
-                  {event.date}
-                </span>
+        return (
+          <section className="w-full py-16 md:py-20 flex flex-col items-center overflow-hidden">
+            {/* Header */}
+            <div className="mx-auto mb-8 max-w-2xl text-center">
+              <span className="inline-block rounded-lg bg-blue-600 px-5 py-2 text-sm sm:text-lg font-bold text-white uppercase tracking-wider shadow-sm">
+                Our Events
+              </span>
+              <p className="mt-4 text-slate-500 font-medium text-sm">
+                Sessions and activities shaping our learning community.
+              </p>
+            </div>
+
+            {/* Carousel Track */}
+            <div className="relative w-full max-w-6xl" style={{ perspective: "1200px" }}>
+              <div className="flex items-center justify-center w-full" style={{ minHeight: "420px" }}>
+                {allEventCards.map((card, i) => {
+                  const offset = i - safeEventIndex;
+                  const isActive = offset === 0;
+                  const isLeft = offset === -1 || (safeEventIndex === 0 && i === totalEvents - 1);
+                  const isRight = offset === 1 || (safeEventIndex === totalEvents - 1 && i === 0);
+                  const isVisible = isActive || isLeft || isRight;
+
+                  if (!isVisible) return null;
+
+                  let translateX = "0%";
+                  let scale = 1;
+                  let opacity = 1;
+                  let zIndex = 10;
+                  let rotateY = "0deg";
+
+                  if (isLeft) {
+                    translateX = "-72%";
+                    scale = 0.82;
+                    opacity = 0.5;
+                    zIndex = 5;
+                    rotateY = "6deg";
+                  } else if (isRight) {
+                    translateX = "72%";
+                    scale = 0.82;
+                    opacity = 0.5;
+                    zIndex = 5;
+                    rotateY = "-6deg";
+                  }
+
+                  return (
+                    <article
+                      key={card.title}
+                      className={`absolute w-[85%] sm:w-[70%] md:w-[440px] overflow-hidden rounded-2xl border bg-white shadow-lg transition-all duration-500 ease-in-out ${isActive
+                          ? "border-slate-200 shadow-xl cursor-default"
+                          : "border-slate-200/60 cursor-pointer"
+                        }`}
+                      style={{
+                        transform: `translateX(${translateX}) scale(${scale}) rotateY(${rotateY})`,
+                        opacity,
+                        zIndex,
+                        transformStyle: "preserve-3d" as const,
+                      }}
+                      onClick={() => {
+                        if (isLeft) setEventSlideIndex((safeEventIndex - 1 + totalEvents) % totalEvents);
+                        if (isRight) setEventSlideIndex((safeEventIndex + 1) % totalEvents);
+                      }}
+                    >
+                      {/* Cover Image */}
+                      <div className="relative aspect-[16/9] overflow-hidden bg-slate-100">
+                        <Image
+                          src={card.image}
+                          alt={card.title}
+                          fill
+                          className="object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                        <span className={`absolute left-4 top-4 rounded-md px-3 py-1 text-xs font-bold text-white ${card.badgeColor}`}>
+                          {card.badge}
+                        </span>
+                        <span className="absolute bottom-4 left-4 rounded-md bg-white/90 px-3 py-1 text-xs font-bold text-blue-600 backdrop-blur-sm">
+                          {card.date}
+                        </span>
+                      </div>
+
+                      {/* Card Body */}
+                      <div className="p-5">
+                        <h3 className="font-space-grotesk text-lg font-bold leading-snug text-slate-900">
+                          {card.title}
+                        </h3>
+                        <p className="mt-2 text-sm leading-relaxed text-slate-500 line-clamp-2">{card.desc}</p>
+                        {card.type === "recruitment" && bannerTimeLeft && isActive && (
+                          <>
+                            <div className="mt-3 flex items-center gap-1.5 font-mono text-[11px] font-bold text-slate-700">
+                              <span className="text-[10px] text-slate-400 font-sans uppercase font-bold mr-0.5">
+                                {recruitmentBannerState === "open" ? "Closes in:" : "Starts in:"}
+                              </span>
+                              <span className="bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-center">{String(bannerTimeLeft.days).padStart(2, "0")}d</span>
+                              <span className="text-slate-300">:</span>
+                              <span className="bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-center">{String(bannerTimeLeft.hours).padStart(2, "0")}h</span>
+                              <span className="text-slate-300">:</span>
+                              <span className="bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-center">{String(bannerTimeLeft.minutes).padStart(2, "0")}m</span>
+                              <span className="text-slate-300">:</span>
+                              <span className="bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded text-blue-600 text-center">{String(bannerTimeLeft.seconds).padStart(2, "0")}s</span>
+                            </div>
+                            <Link
+                              href="/membership#recruitment-form"
+                              className="mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition-all active:scale-95 shadow-sm cursor-pointer select-none"
+                            >
+                              <span>{recruitmentBannerState === "open" ? "Apply Now" : "Register"}</span>
+                              <ArrowUpRight className="h-3.5 w-3.5" />
+                            </Link>
+                          </>
+                        )}
+                      </div>
+                    </article>
+                  );
+                })}
               </div>
-              <div className="p-5">
-                <h3 className="font-space-grotesk text-lg font-bold leading-snug text-slate-900 transition-colors group-hover:text-blue-600">
-                  {event.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-slate-500">{event.desc}</p>
+
+              {/* Left Arrow */}
+              {totalEvents > 1 && (
+                <button
+                  onClick={() => setEventSlideIndex((safeEventIndex - 1 + totalEvents) % totalEvents)}
+                  className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-20 p-2.5 rounded-full bg-white/90 hover:bg-white border border-slate-200 text-slate-600 hover:text-slate-900 shadow-md backdrop-blur-sm transition-all hover:scale-110"
+                  aria-label="Previous event"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                  </svg>
+                </button>
+              )}
+
+              {/* Right Arrow */}
+              {totalEvents > 1 && (
+                <button
+                  onClick={() => setEventSlideIndex((safeEventIndex + 1) % totalEvents)}
+                  className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-20 p-2.5 rounded-full bg-white/90 hover:bg-white border border-slate-200 text-slate-600 hover:text-slate-900 shadow-md backdrop-blur-sm transition-all hover:scale-110"
+                  aria-label="Next event"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                  </svg>
+                </button>
+              )}
+            </div>
+
+            {/* Pause/Play Button */}
+            {totalEvents > 1 && (
+              <button
+                onClick={() => setIsEventPlaying(!isEventPlaying)}
+                className="mt-6 p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors border border-slate-200"
+                aria-label={isEventPlaying ? "Pause event carousel" : "Play event carousel"}
+              >
+                {isEventPlaying ? (
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
+                  </svg>
+                ) : (
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
+                  </svg>
+                )}
+              </button>
+            )}
+
+            {/* Dot Indicators */}
+            {totalEvents > 1 && (
+              <div className="mt-3 flex gap-2">
+                {allEventCards.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setEventSlideIndex(i)}
+                    className={`h-2 rounded-full transition-all ${safeEventIndex === i ? "w-6 bg-blue-600" : "w-2 bg-slate-300 hover:bg-slate-400"}`}
+                    aria-label={`Go to event ${i + 1}`}
+                  />
+                ))}
               </div>
-            </article>
-          ))}
-        </div>
-      </section>
+            )}
+          </section>
+        );
+      })()}
 
       <section className="w-full py-20 rounded-2xl bg-gradient-to-r from-blue-50/40 via-indigo-50/40 to-slate-50 border border-slate-100/80 my-8">
         <div className="mx-auto max-w-3xl text-center px-6">
