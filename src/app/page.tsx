@@ -8,53 +8,45 @@ import { BrainCircuit, FlaskConical, Network, Search, Database, FileText, Cpu, E
 import { motion, AnimatePresence } from "framer-motion";
 
 const gallerySlides = [
-  // 1. Member Recruitment 2026
-  {
-    src: "/images/recruitment banner.png",
-    title: "Member Recruitment 2026 (Extended)",
-    date: "August 3–8, 2026",
-    desc: "Join PUST Data Science Club! Get 1 year of free DataCamp Premium and hands-on workshops.",
-    category: "RECRUITMENT",
-  },
-  // 2. Statistics Week 2026
-  {
-    src: "/images/events/statweek26.png",
-    title: "Statistics Week 2026",
-    date: "April 2026",
-    desc: "Sports week tournament featuring live fixtures and boards for Chess, Carrom, Cricket, and Football.",
-    category: "TOURNAMENT",
-  },
-  // 3. AI & Data Science Career Insights & Python Mastery
-  {
-    src: "/images/events/career-mastery-banner.jpg",
-    title: "Career Insights & Python Mastery",
-    date: "May 20, 2025",
-    desc: "A seminar and masterclass focused on AI career routes and Python hands-on data operations.",
-    category: "WORKSHOP",
-  },
-  // 4. Inauguration Ceremony
+  // 1. Inauguration Ceremony (Feb 2025)
   {
     src: "/images/events/inaug-IMG20250226122024.jpg",
     title: "Inauguration Ceremony",
     date: "Feb 26, 2025",
     desc: "PUST DSC core executive team during the official inauguration ceremony.",
-    category: "CEREMONY",
   },
-  // 5. Visit with Advisors
+  // 2. AI & Data Science Career Insights & Python Mastery (May 2025)
+  {
+    src: "/images/events/career-mastery-banner.jpg",
+    title: "Career Insights & Python Mastery",
+    date: "May 20, 2025",
+    desc: "A seminar and masterclass focused on AI career routes and Python hands-on data operations.",
+  },
+  {
+    src: "/images/events/career-mastery-1.jpg",
+    title: "Career Insights & Python Mastery",
+    date: "May 20, 2025",
+    desc: "Industrial session mapping key career choices for data engineers and machine learning developers.",
+  },
+  // 4. Visit with Advisors (July 2026)
   {
     src: "/images/events/Visit with advisors.jpg",
-    title: "Visit with Faculty Advisors",
+    title: "Visit with Advisors",
     date: "July 23, 2026",
-    desc: "Club members and faculty advisors during a special strategic visit.",
-    category: "MEETUP",
+    desc: "Club members and faculty advisors during a special visit.",
   },
-  // 6. Executive Committee Handover
+  // 5. Handover Ceremony (July 2026)
   {
     src: "/images/events/handover-IMG_20260715_140630.jpg",
     title: "1st Executive Committee Handover",
     date: "July 15, 2026",
     desc: "The 1st executive committee formally accepts their leadership roles.",
-    category: "HANDOVER",
+  },
+  {
+    src: "/images/events/handover-IMG_20260715_141039.jpg",
+    title: "1st Executive Committee Handover",
+    date: "July 15, 2026",
+    desc: "A celebratory group photo concluding the handover meeting.",
   },
 ];
 
@@ -436,8 +428,8 @@ export default function Home() {
               </span>
 
               <span className={`text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded border ${recruitmentBannerState === "open"
-                  ? "bg-emerald-950/80 text-emerald-300 border-emerald-800/80"
-                  : "bg-blue-950/80 text-blue-300 border-blue-800/80"
+                ? "bg-emerald-950/80 text-emerald-300 border-emerald-800/80"
+                : "bg-blue-950/80 text-blue-300 border-blue-800/80"
                 }`}>
                 {recruitmentBannerState === "open" ? "Recruitment Ongoing" : "Member Recruitment 2026"}
               </span>
@@ -538,155 +530,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ PAST EVENTS & HIGHLIGHTS (Visual Studio YouTube Hub 3D Coverflow Style) ═══ */}
-      <section className="w-full py-12 md:py-16 overflow-hidden flex flex-col items-center">
-        
-        {/* Header Title & Button (Matching Visual Studio Hub Screenshot) */}
-        <div className="mx-auto max-w-2xl text-center space-y-3">
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-space-grotesk text-slate-900">
-            Past Events &amp; Highlights
-          </h2>
-          <div>
-            <Link
-              href="/events"
-              className="inline-flex items-center gap-1.5 rounded-full bg-[#3b2e58] hover:bg-[#4d3c72] px-6 py-2 text-xs sm:text-sm font-bold text-white shadow-md transition-all hover:scale-105"
-            >
-              <span>Explore All Events</span>
-            </Link>
-          </div>
-        </div>
-
-        {/* 3D Coverflow Carousel Container */}
-        <div className="relative w-full max-w-6xl mt-10 min-h-[260px] sm:min-h-[380px] md:min-h-[440px] flex items-center justify-center px-4">
-          
-          {/* Left Arrow Navigation */}
-          <button
-            onClick={handlePrev}
-            className="absolute left-2 sm:left-6 lg:left-12 z-30 p-2.5 sm:p-3 rounded-full bg-white/95 hover:bg-white text-slate-800 shadow-lg border border-slate-200 transition-all hover:scale-110"
-            aria-label="Previous event"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-            </svg>
-          </button>
-
-          {/* 3D Cards Frame */}
-          <div className="relative w-full max-w-4xl h-[240px] sm:h-[340px] md:h-[400px] flex items-center justify-center">
-            {gallerySlides.map((slide, i) => {
-              const isCenter = slideIndex === i;
-              const isLeft = (slideIndex - 1 + gallerySlides.length) % gallerySlides.length === i;
-              const isRight = (slideIndex + 1) % gallerySlides.length === i;
-
-              if (!isCenter && !isLeft && !isRight) return null;
-
-              return (
-                <div
-                  key={i}
-                  onClick={() => {
-                    if (!isCenter) {
-                      setSlideIndex(i);
-                      setIsPlaying(false);
-                    }
-                  }}
-                  className={`absolute top-0 bottom-0 aspect-[16/9] transition-all duration-500 ease-out rounded-2xl overflow-hidden cursor-pointer ${
-                    isCenter
-                      ? "z-20 scale-100 opacity-100 shadow-2xl border-2 border-white/80 translate-x-0"
-                      : isLeft
-                      ? "z-10 scale-[0.82] sm:scale-85 opacity-70 border border-slate-200 -translate-x-[35%] sm:-translate-x-[45%] md:-translate-x-[55%]"
-                      : "z-10 scale-[0.82] sm:scale-85 opacity-70 border border-slate-200 translate-x-[35%] sm:translate-x-[45%] md:translate-x-[55%]"
-                  }`}
-                >
-                  <Image
-                    src={slide.src}
-                    alt={slide.title}
-                    fill
-                    className="object-cover"
-                    priority={isCenter}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
-
-                  {/* Category Pill Tag */}
-                  {slide.category && (
-                    <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-md text-slate-900 text-[10px] font-black px-2.5 py-1 rounded-md uppercase tracking-widest shadow-2xs">
-                      {slide.category}
-                    </span>
-                  )}
-
-                  {/* Center Translucent Play Icon Overlay (Matching Visual Studio Hub Screenshot) */}
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-black/50 border border-white/30 backdrop-blur-md text-white flex items-center justify-center shadow-xl">
-                      <svg className="w-6 h-6 ml-0.5 fill-current" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </div>
-                  </div>
-
-                  {/* Bottom Text Overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-5 text-white text-left z-10">
-                    <span className="text-[10px] sm:text-xs font-bold text-blue-300 uppercase tracking-wider block mb-1">
-                      {slide.date}
-                    </span>
-                    <h3 className="font-space-grotesk text-sm sm:text-lg md:text-xl font-extrabold line-clamp-1 leading-snug">
-                      {slide.title}
-                    </h3>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Right Arrow Navigation */}
-          <button
-            onClick={handleNext}
-            className="absolute right-2 sm:right-6 lg:right-12 z-30 p-2.5 sm:p-3 rounded-full bg-white/95 hover:bg-white text-slate-800 shadow-lg border border-slate-200 transition-all hover:scale-110"
-            aria-label="Next event"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Center Play/Pause Toggle Button (Matching Visual Studio Hub || / ▶ button) */}
-        <div className="mt-6 flex flex-col items-center gap-3">
-          <button
-            onClick={() => setIsPlaying(!isPlaying)}
-            className="w-10 h-10 rounded-xl bg-[#2b2738] hover:bg-[#3b354d] text-white flex items-center justify-center shadow-md transition-colors border border-white/10"
-            aria-label={isPlaying ? "Pause slideshow" : "Start slideshow"}
-          >
-            {isPlaying ? (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
-              </svg>
-            ) : (
-              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            )}
-          </button>
-
-          {/* Dot Indicators */}
-          <div className="flex gap-2">
-            {gallerySlides.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => {
-                  setSlideIndex(i);
-                  setIsPlaying(false);
-                }}
-                className={`h-2 rounded-full transition-all ${
-                  slideIndex === i ? "w-6 bg-blue-600" : "w-2 bg-slate-300 hover:bg-slate-400"
-                }`}
-                aria-label={`Go to slide ${i + 1}`}
-              />
-            ))}
-          </div>
-        </div>
-
-      </section>
-
-      {/* ═══ OUR JOURNEY GALLERY SLIDESHOW ═══ */}
-      <section className="w-full py-12 md:py-16 flex flex-col items-center border-t border-slate-100">
+      {/* ═══ GALLERY SLIDESHOW ═══ */}
+      <section className="w-full py-4 flex flex-col items-center">
         <div className="mx-auto mb-10 max-w-2xl text-center">
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-space-grotesk text-blue-600">
             Our Journey
@@ -704,6 +549,7 @@ export default function Home() {
               className="object-cover transition-opacity duration-500"
               priority
             />
+            {/* Stronger gradient so caption text is always readable */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
           </div>
 
@@ -718,8 +564,8 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
               </svg>
             ) : (
-              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
               </svg>
             )}
           </button>
@@ -738,7 +584,7 @@ export default function Home() {
           {/* Right Navigation */}
           <button
             onClick={handleNext}
-            className="absolute right-2.5 md:left-4 top-1/2 -translate-y-1/2 z-20 p-1.5 md:p-2.5 rounded-full bg-black/50 hover:bg-black/75 text-white backdrop-blur-sm transition-colors border border-white/10"
+            className="absolute right-2.5 md:right-4 top-1/2 -translate-y-1/2 z-20 p-1.5 md:p-2.5 rounded-full bg-black/50 hover:bg-black/75 text-white backdrop-blur-sm transition-colors border border-white/10"
             aria-label="Next image"
           >
             <svg className="w-4 h-4 md:w-6 md:h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -767,11 +613,10 @@ export default function Home() {
                   setSlideIndex(i);
                   setIsPlaying(false);
                 }}
-                className={`relative aspect-[16/9] rounded-lg overflow-hidden border-2 bg-slate-200 transition-all ${
-                  slideIndex === i
-                    ? "border-blue-600 ring-2 ring-blue-600/35 scale-[1.03]"
-                    : "border-transparent opacity-65 hover:opacity-100"
-                }`}
+                className={`relative aspect-[16/9] rounded-lg overflow-hidden border-2 bg-slate-200 transition-all ${slideIndex === i
+                  ? "border-blue-600 ring-2 ring-blue-600/35 scale-[1.03]"
+                  : "border-transparent opacity-65 hover:opacity-100"
+                  }`}
               >
                 <Image
                   src={item.src}
@@ -793,9 +638,8 @@ export default function Home() {
                 setSlideIndex(i);
                 setIsPlaying(false);
               }}
-              className={`h-2.5 rounded-full transition-all ${
-                slideIndex === i ? "w-7 bg-blue-600" : "w-2.5 bg-slate-300 hover:bg-slate-400"
-              }`}
+              className={`h-2.5 rounded-full transition-all ${slideIndex === i ? "w-7 bg-blue-600" : "w-2.5 bg-slate-300 hover:bg-slate-400"
+                }`}
               aria-label={`Go to slide ${i + 1}`}
             />
           ))}
@@ -807,9 +651,7 @@ export default function Home() {
             className="inline-flex h-11 items-center justify-center rounded-xl bg-blue-600 bg-gradient-to-r from-blue-600 to-indigo-600 px-8 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-500/30"
           >
             View Full Gallery
-            <svg className="ml-2 h-4 w-4 animate-pulse" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-7-7 7 7-7 7" />
-            </svg>
+            <svg className="ml-2 h-4 w-4 animate-pulse" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-7-7 7 7-7 7" /></svg>
           </Link>
         </div>
       </section>
@@ -855,6 +697,48 @@ export default function Home() {
         </div>
       </section>
 
+
+      {/* ═══ PAST EVENTS ═══ */}
+      <section className="w-full py-12 md:py-16 flex flex-col items-center">
+        <div className="mx-auto mb-10 max-w-2xl text-center">
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-space-grotesk text-blue-600">
+            Past Events
+          </h2>
+          <p className="mt-4 text-slate-500 font-medium">
+            A look back at the sessions and activities that shaped our learning community.
+          </p>
+        </div>
+
+        <div className="grid w-full max-w-4xl gap-6 md:grid-cols-2 px-2">
+          {pastEvents.map((event) => (
+            <article key={event.title} className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-lg flex flex-col">
+              <div className="relative aspect-[16/9] overflow-hidden bg-slate-100">
+                <Image
+                  src={event.image}
+                  alt={event.title}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                <span className="absolute left-4 top-4 rounded-md bg-blue-600 px-3 py-1 text-xs font-bold text-white shadow-2xs">
+                  Ended
+                </span>
+                <span className="absolute bottom-4 left-4 rounded-md bg-white/95 px-3 py-1 text-xs font-bold text-blue-600 backdrop-blur-sm shadow-2xs">
+                  {event.date}
+                </span>
+              </div>
+              <div className="p-6 flex flex-col flex-1 justify-between">
+                <div>
+                  <h3 className="font-space-grotesk text-xl font-bold leading-snug text-slate-900 transition-colors group-hover:text-blue-600">
+                    {event.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-500 font-normal">{event.desc}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
 
       {/* ═══ SKILLS SHOWCASE ═══ */}
       <section className="w-auto -mx-[16px] md:mx-0 md:w-full py-16 md:py-20 overflow-hidden bg-gradient-to-b from-white via-blue-50/30 to-white">
