@@ -83,16 +83,6 @@ const pastEvents = [
     link: "/events",
     isExternal: false,
   },
-  {
-    title: "Statistics Week 2026",
-    date: "April 2026",
-    status: "Ended",
-    statusBg: "bg-slate-700",
-    image: "/images/events/statweek26.png",
-    desc: "An engaging sports week tournament featuring live fixtures, brackets, and interactive boards for Chess, Carrom, Ludu, Cricket, and Football events.",
-    link: "https://adittoahosankabbo.github.io/statweek",
-    isExternal: true,
-  },
 ];
 
 const resourceHub = {
@@ -733,7 +723,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid w-full max-w-5xl gap-6 md:grid-cols-3 px-2">
+        <div className="grid w-full max-w-4xl gap-6 md:grid-cols-2 px-2">
           {pastEvents.map((event) => {
             const CardWrapper = event.isExternal ? "a" : Link;
             const linkProps = event.isExternal
