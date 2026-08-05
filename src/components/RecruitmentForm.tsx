@@ -192,7 +192,7 @@ export default function RecruitmentForm() {
     const calculateTimeLeft = () => {
       // Bangladesh Time GMT+6 (Starts 2 hours before midnight: 2 August 10:00 PM GMT+6)
       const startDate = new Date("2026-08-02T22:00:00+06:00").getTime();
-      const endDate = new Date("2026-08-05T23:59:59+06:00").getTime();
+      const endDate = new Date("2026-08-08T23:59:59+06:00").getTime();
       const now = new Date().getTime();
 
       if (now < startDate) {
@@ -795,7 +795,7 @@ export default function RecruitmentForm() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                 </span>
-                Recruitment Open: 3–5 August 2026
+                Recruitment Open: 3–8 August 2026 (Extended)
               </span>
             ) : (
               <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md border border-slate-200">
@@ -821,6 +821,20 @@ export default function RecruitmentForm() {
 
           {/* Left Column: Overview & Steps */}
           <div className="p-4 sm:p-5 space-y-3.5 border-b lg:border-b-0 lg:border-r border-slate-100 flex flex-col justify-between">
+            {/* DataCamp Perk Highlight */}
+            <div className="p-3 rounded-xl bg-gradient-to-r from-emerald-50/80 via-teal-50/60 to-blue-50/80 border border-emerald-200/90 flex items-center justify-between gap-3 shadow-2xs">
+              <div className="flex items-center gap-2.5">
+                <div className="bg-white p-1 rounded-lg border border-slate-200 shrink-0 shadow-2xs">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/images/logo/DC_Donates_logo_regular.png" alt="DataCamp Donates" className="h-4.5 sm:h-5 w-auto object-contain" />
+                </div>
+                <div>
+                  <p className="text-[11px] font-extrabold text-slate-900 leading-tight">Official Partner Perk</p>
+                  <p className="text-[10px] text-emerald-800 font-bold leading-tight mt-0.5">1 Year Free DataCamp Premium Access ($300+ Value)</p>
+                </div>
+              </div>
+            </div>
+
             {/* Top Group */}
             <div className="space-y-2.5">
               <div className="flex items-center justify-between h-5">
@@ -831,7 +845,7 @@ export default function RecruitmentForm() {
               <div className="grid grid-cols-2 gap-2.5">
                 <div className="p-2.5 sm:p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
                   <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">Registration Period</p>
-                  <p className="font-sans text-xs sm:text-sm font-bold text-slate-900 mt-0.5">3–5 August 2026</p>
+                  <p className="font-sans text-xs sm:text-sm font-bold text-slate-900 mt-0.5">3–8 August 2026 (Extended)</p>
                 </div>
                 <div className="p-2.5 sm:p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
                   <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">Registration Fee</p>

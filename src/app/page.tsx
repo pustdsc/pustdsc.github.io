@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { siteData } from "@/data/data";
-import { BrainCircuit, FlaskConical, Network, Search, Database, FileText, Cpu, ExternalLink, Sparkles, Globe, Eye, Mic, Bot, Gamepad2, Smartphone, ArrowUpRight, Layers } from "lucide-react";
+import { BrainCircuit, FlaskConical, Network, Search, Database, FileText, Cpu, ExternalLink, Sparkles, Globe, Eye, Mic, Bot, Gamepad2, Smartphone, ArrowUpRight, Layers, Gift, GraduationCap, Award, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const gallerySlides = [
@@ -308,7 +308,7 @@ export default function Home() {
   useEffect(() => {
     const calculateTimeLeft = () => {
       const startDate = new Date("2026-08-02T22:00:00+06:00").getTime();
-      const endDate = new Date("2026-08-05T23:59:59+06:00").getTime();
+      const endDate = new Date("2026-08-08T23:59:59+06:00").getTime();
       const now = new Date().getTime();
 
       if (now > endDate) {
@@ -416,7 +416,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ RECRUITMENT COUNTDOWN BANNER (Below Hero, Vanishes after 5 Aug 23:59) ═══ */}
+      {/* ═══ RECRUITMENT COUNTDOWN BANNER (Below Hero, Vanishes after 8 Aug 23:59) ═══ */}
       {recruitmentBannerState !== "ended" && bannerTimeLeft && (
         <section className="-mx-[16px] sm:-mx-[20px] lg:-mx-[32px] -mt-16 sm:-mt-20 bg-slate-900 border-y border-blue-900/50 text-white relative z-30 shadow-md">
           <div className="mx-auto max-w-7xl px-4 py-3 sm:py-4 flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
@@ -437,8 +437,8 @@ export default function Home() {
 
               <p className="text-xs sm:text-sm font-semibold text-slate-200">
                 {recruitmentBannerState === "open"
-                  ? "Official Registration is LIVE & ONGOING! (3–5 August)"
-                  : "Official Member Registration Starts 3–5 August 2026"}
+                  ? "Official Registration Extended! LIVE & ONGOING till 8 August"
+                  : "Official Member Registration Starts 3–8 August 2026"}
               </p>
             </div>
 
@@ -468,6 +468,68 @@ export default function Home() {
           </div>
         </section>
       )}
+
+      {/* ═══ OFFICIAL EDUCATION PARTNER: DATACAMP (Balanced Layout) ═══ */}
+      <section className="-mx-[16px] sm:-mx-[20px] lg:-mx-[32px] my-6 border-y border-slate-200/80 bg-slate-50/70 py-6 sm:py-7 md:py-8 px-4 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-6xl flex flex-col md:flex-row items-center justify-between gap-6 md:gap-10">
+
+          {/* Left Column: Exact Partnership Logo Card */}
+          <div className="shrink-0 w-full md:w-auto flex justify-center md:justify-start">
+            <div className="inline-flex items-center justify-center bg-white border border-slate-200/90 rounded-2xl shadow-2xs px-5 py-3.5 sm:px-6 sm:py-4 gap-4 sm:gap-5 max-w-full overflow-x-auto">
+              {/* Left: PUST DSC Logo + Red Line + Stacked Name */}
+              <div className="flex items-center gap-3 shrink-0">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-md overflow-hidden bg-[#0a192f] p-1 flex items-center justify-center shrink-0">
+                  <Image
+                    src="/images/logo/logo.png"
+                    alt="PUST DSC Logo"
+                    width={40}
+                    height={40}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <div className="h-7 sm:h-8 w-[2px] bg-[#c02626] shrink-0 rounded-full" />
+                <div className="text-left font-space-grotesk font-black text-slate-900 leading-[1.1] tracking-tight uppercase text-[10px] sm:text-[11px] md:text-xs select-none">
+                  <p>PUST</p>
+                  <p>DATA SCIENCE</p>
+                  <p>CLUB</p>
+                </div>
+              </div>
+
+              {/* Middle: Partnership Cross Symbol */}
+              <div className="text-slate-700 text-base sm:text-lg md:text-xl font-light px-0.5 select-none shrink-0">
+                ✕
+              </div>
+
+              {/* Right: DataCamp Donates Logo */}
+              <div className="shrink-0 flex items-center">
+                <Image
+                  src="/images/logo/DC_Donates_logo_regular.png"
+                  alt="DataCamp Donates"
+                  width={150}
+                  height={40}
+                  className="h-8 sm:h-9 md:h-10 w-auto object-contain"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Label, Title & Description (Balanced Alignment) */}
+          <div className="space-y-2 text-center md:text-left flex-1 max-w-2xl">
+            <div>
+              <span className="inline-flex items-center px-3.5 py-1 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-700 text-[11px] md:text-xs font-extrabold uppercase tracking-widest shadow-2xs">
+                Official Education Partner
+              </span>
+            </div>
+            <h2 className="font-space-grotesk text-lg sm:text-xl md:text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-snug">
+              1 Year of Free <span className="text-blue-600 font-black">DataCamp Premium</span> Access
+            </h2>
+            <p className="text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed font-normal">
+              PUST Data Science Club has officially partnered with <strong className="text-slate-900 font-semibold">DataCamp Donates</strong> to provide all registered members with 1 year of free DataCamp Premium access.
+            </p>
+          </div>
+
+        </div>
+      </section>
 
       {/* ═══ GALLERY SLIDESHOW ═══ */}
       <section className="w-full py-4 flex flex-col items-center">
@@ -635,6 +697,7 @@ export default function Home() {
           ))}
         </div>
       </section>
+
 
       {/* ═══ SKILLS SHOWCASE ═══ */}
       <section className="w-auto -mx-[16px] md:mx-0 md:w-full py-16 md:py-20 overflow-hidden bg-gradient-to-b from-white via-blue-50/30 to-white">
